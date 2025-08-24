@@ -1,0 +1,49 @@
+<div class="modelCon">
+<div class="modal-header">
+  <h5 class="modal-title">Create Event</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="event.title" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" [(ngModel)]="event.description" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Location</label>
+      <input type="text" class="form-control" name="location" [(ngModel)]="event.location" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Start Time</label>
+      <input type="datetime-local" class="form-control" name="start" [(ngModel)]="event.start" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">End Time</label>
+      <input type="datetime-local" class="form-control" name="end" [(ngModel)]="event.end" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <select class="form-select" name="status" [(ngModel)]="event.status" required>
+        <option value="Scheduled">Scheduled</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!eventForm.form.valid">Save</button>
+  </div>
+</form>
+</div>

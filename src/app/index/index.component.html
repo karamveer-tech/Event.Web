@@ -1,0 +1,459 @@
+<ion-content>
+<div class="main-container body text-light "> 
+  <!-- ==========Preloader========== -->
+   
+    <!-- ==========Preloader========== -->
+    <!-- ==========Overlay========== -->
+    <div class="overlay"></div>
+    <a href="#" class="scrollToTop">
+        <i class="fal fa-long-arrow-alt-up"></i>
+    </a>
+    <!-- ==========Overlay========== -->
+
+    
+    <!-- ==========Banner-Section========== -->
+    <section class="banner-section">
+        <div class="banner-bg bg-fixed" style="background:url('/assets/img/banner/banner-1.jpg')"></div>
+        <div class="container">
+            <div class="banner-content">
+                <h1 class="title  cd-headline clip"><span class="d-block">Tickets Booking</span> for
+                    <span class="color-theme cd-words-wrapper p-0 m-0">
+                        <!-- <b class="is-visible">Movie</b> -->
+                        <b>Event</b>
+                        <b>Sport</b>
+                    </span>
+                </h1>
+                <p>Buy Your Tickets Online And Enjoy Your Live Entertainment!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========Ticket-Search========== -->
+    <section class="search-ticket-section padding-top pt-lg-0">
+        <div class="container">
+            <div class="search-tab">
+                <div class="row align-items-center mb-4">
+                    <div class="col-lg-6 mb-3">
+                        <div class="search-ticket-header">
+                            <h6 class="category">Search Tickets</h6>
+                            <h3 class="title">Find Your Tickets Now</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <ul class="tab-menu ticket-tab-menu d-flex justify-content-end align-items-center">
+                            <li class="tab-item d-flex align-items-center me-3">
+                                <div class="tab-thumb me-2">
+                                    <img src="/assets/img/ticket/event.png" alt="Event Ticket" />
+                                </div>
+                                <span>Events</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-area">
+                    <!-- movie tab -->
+                    <div class="tab-item active">
+                       <form class="ticket-search-form" id="eventSearchForm">
+                            <div class="form-group large w-100">
+        <input type="text" id="eventSearchInput" placeholder="Search for Events by city, title, ">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </div>
+                            
+                        </form>
+                    </div>
+
+                    <!-- event tab -->
+                    <div class="tab-item">
+                        <form class="ticket-search-form">
+                            <div class="form-group large">
+                                <input type="text" placeholder="Search for Events">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="/assets/img/ticket/city.png" alt="ticket">
+                                </div>
+                                <span class="type">city</span>
+                                <select class="select-bar">
+                                    <option value="london">New York</option>
+                                    <option value="dhaka">California</option>
+                                    <option value="rosario">Texas</option>
+                                    <option value="madrid">Florida</option>
+                                    <option value="koltaka">Nevada</option>
+                                    <option value="rome">Oregon</option>
+                                    <option value="khoksa">Ohio</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="/assets/img/ticket/date.png" alt="ticket">
+                                </div>
+                                <span class="type">date</span>
+                                <select class="select-bar">
+                                    <option value="11/04/2023">11/04/2023</option>
+                                    <option value="10/04/2023">10/04/2023</option>
+                                    <option value="09/04/2023">09/04/2023</option>
+                                    <option value="08/04/2023">08/04/2023</option>
+                                    <option value="07/04/2023">07/04/2023</option>
+                                    <option value="06/04/2023">06/04/2023</option>
+                                    <option value="05/04/2023">05/04/2023</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="/assets/img/ticket/event-2.png" alt="ticket">
+                                </div>
+                                <span class="type">event</span>
+                                <select class="select-bar">
+                                    <option value="Design">Design</option>
+                                    <option value="Development">Development</option>
+                                    <option value="Software">Software</option>
+                                    <option value="Digital">Digital</option>
+                                    <option value="Festival">Festival</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Seo">Seo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <button type="submit" class="filter-btn"><i class="far fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- sports tab -->
+                    <div class="tab-item">
+                        <form class="ticket-search-form">
+                            <div class="form-group large">
+                                <input type="text" placeholder="Search fo Sports">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="/assets/img/ticket/city.png" alt="ticket">
+                                </div>
+                                <span class="type">city</span>
+                                <select class="select-bar">
+                                    <option value="london">New York</option>
+                                    <option value="dhaka">California</option>
+                                    <option value="rosario">Texas</option>
+                                    <option value="madrid">Florida</option>
+                                    <option value="koltaka">Nevada</option>
+                                    <option value="rome">Oregon</option>
+                                    <option value="khoksa">Ohio</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="/assets/img/ticket/date.png" alt="ticket">
+                                </div>
+                                <span class="type">date</span>
+                                <select class="select-bar">
+                                    <option value="11/04/2023">11/04/2023</option>
+                                    <option value="10/04/2023">10/04/2023</option>
+                                    <option value="09/04/2023">09/04/2023</option>
+                                    <option value="08/04/2023">08/04/2023</option>
+                                    <option value="07/04/2023">07/04/2023</option>
+                                    <option value="06/04/2023">06/04/2023</option>
+                                    <option value="05/04/2023">05/04/2023</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="/assets/img/ticket/sport-2.png" alt="ticket">
+                                </div>
+                                <!-- <span class="type">sport</span>
+                                <select class="select-bar">
+                                    <option value="Cricket">Cricket</option>
+                                    <option value="Football">Football</option>
+                                    <option value="Basketball">Basketball</option>
+                                    <option value="Baseball">Baseball</option>
+                                    <option value="Golf">Golf</option>
+                                    <option value="Running">Running</option>
+                                    <option value="Badminton">Badminton</option>
+                                </select> -->
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <button type="submit" class="filter-btn"><i class="far fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Ticket-Search========== -->
+
+  <section class="movie-section bg-two">
+        <div class="container">
+            <div class="row flex-wrap-reverse justify-content-center">
+                <div class="col-lg-12">
+                    <div class="article-section padding-bottom">
+                        <div class="section-header-1">
+                            <h2 class="title">events</h2>
+                            <a class="view-more" href="events.html">View More <i
+                                    class="fal fa-long-arrow-alt-right"></i> </a>
+                        </div>
+                        <div class="row mb-30-none justify-content-center" id="eventListContainer">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="event-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/event/event-1.jpg" alt="event">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="movie-content">
+                                        <h5 class="title m-0">
+                                            <a href="#">Digital Conference 2023</a>
+                                        </h5>
+                                        <div class="movie-rating-percent">
+                                            <div>
+                                                <i class="fal fa-map-marker-alt"></i>
+                                                <span>290 Private Lane</span>
+                                            </div>
+                                            <div>
+                                                <i class="fal fa-shopping-cart"></i>
+                                                <span>10k</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="event-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/event/event-2.jpg" alt="event">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="movie-content">
+                                        <h5 class="title m-0">
+                                            <a href="#">Learn Conference 2023</a>
+                                        </h5>
+                                        <div class="movie-rating-percent">
+                                            <div>
+                                                <i class="fal fa-map-marker-alt"></i>
+                                                <span>290 Private Lane</span>
+                                            </div>
+                                            <div>
+                                                <i class="fal fa-shopping-cart"></i>
+                                                <span>10k</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="event-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/event/event-3.jpg" alt="event">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="movie-content">
+                                        <h5 class="title m-0">
+                                            <a href="#">Business World 2023</a>
+                                        </h5>
+                                        <div class="movie-rating-percent">
+                                            <div>
+                                                <i class="fal fa-map-marker-alt"></i>
+                                                <span>290 Private Lane</span>
+                                            </div>
+                                            <div>
+                                                <i class="fal fa-shopping-cart"></i>
+                                                <span>10k</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="event-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/event/event-4.jpg" alt="event">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="movie-content">
+                                        <h5 class="title m-0">
+                                            <a href="#">Building New Community</a>
+                                        </h5>
+                                        <div class="movie-rating-percent">
+                                            <div>
+                                                <i class="fal fa-map-marker-alt"></i>
+                                                <span>290 Private Lane</span>
+                                            </div>
+                                            <div>
+                                                <i class="fal fa-shopping-cart"></i>
+                                                <span>10k</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="event-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/event/event-5.jpg" alt="event">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="movie-content">
+                                        <h5 class="title m-0">
+                                            <a href="#">User Interface 2023</a>
+                                        </h5>
+                                        <div class="movie-rating-percent">
+                                            <div>
+                                                <i class="fal fa-map-marker-alt"></i>
+                                                <span>290 Private Lane</span>
+                                            </div>
+                                            <div>
+                                                <i class="fal fa-shopping-cart"></i>
+                                                <span>10k</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="event-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/event/event-6.jpg" alt="event">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="movie-content">
+                                        <h5 class="title m-0">
+                                            <a href="#">Freedom Music Fest 2023</a>
+                                        </h5>
+                                        <div class="movie-rating-percent">
+                                            <div>
+                                                <i class="fal fa-map-marker-alt"></i>
+                                                <span>290 Private Lane</span>
+                                            </div>
+                                            <div>
+                                                <i class="fal fa-shopping-cart"></i>
+                                                <span>10k</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <section class="movie-section padding-bottom bg-two">
+        <div class="container">
+            <div class="row flex-wrap-reverse justify-content-center">
+                <div class="col-lg-12">
+                    <div class="article-section">
+                        <div class="section-header-1">
+                            <h2 class="title">Blog</h2>
+                            <a class="view-more" href="blog.html">View More <i class="fal fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
+                        <div class="row mb-30-none justify-content-center">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="blog-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/blog/blog-1.jpg" alt="blog">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h5 class="title">There are many variations of passages</h5>
+                                        <p>
+                                            It is a long established fact that a reader will be distracted by the
+                                            readable content of a page
+                                        </p>
+                                        <a href="">Read More <i class="fal fa-long-arrow-alt-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="blog-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/blog/blog-2.jpg" alt="blog">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h5 class="title">Contrary to popular belief distracted</h5>
+                                        <p>
+                                            It is a long established fact that a reader will be distracted by the
+                                            readable content of a page
+                                        </p>
+                                        <a href="">Read More <i class="fal fa-long-arrow-alt-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="blog-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="#">
+                                            <img src="/assets/img/blog/blog-3.jpg" alt="blog">
+                                        </a>
+                                        <div class="event-date">
+                                            <h6 class="date-title">11</h6>
+                                            <span>Feb</span>
+                                        </div>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h5 class="title">Sed ut perspiciatis unde omnis iste</h5>
+                                        <p>
+                                            It is a long established fact that a reader will be distracted by the
+                                            readable content of a page
+                                        </p>
+                                        <a href="">Read More <i class="fal fa-long-arrow-alt-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+    </div>
+</ion-content>

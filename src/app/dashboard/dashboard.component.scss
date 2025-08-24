@@ -1,0 +1,541 @@
+modal-backdrop {
+  z-index: 1;
+}
+.event-form-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 60px;
+    }
+
+    #event_form_id {
+      background: #0e1d35;
+      padding: 35px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 255, 200, 0.05);
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px 32px;
+    }
+
+    .event-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    #event_form_id .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #event_form_id .type {
+      color: #00ffc3;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    #event_form_id input,
+    #event_form_id textarea,
+    #event_form_id select {
+      background: #09152b;
+      border: 1px solid #23375a;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 15px;
+      /* width: 100%; */
+    }
+
+    #event_form_id .filter-btn {
+      background: #00ffc3;
+      color: #01223e;
+      padding: 12px 26px;
+      border: 0;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background .25s;
+    }
+
+    #event_form_id .filter-btn:hover {
+      background: #00d2a8;
+    }
+
+    .cardContainer {
+      width: 100%;
+      /* background-color:darkcyan; */
+      display: flex;
+
+    }
+
+    .event-card {
+      height: 100%;
+      margin: 10px;
+      width: 50%;
+      border-radius: 8px;
+    }
+
+    .event-image {
+      height: 200px;
+      object-fit: cover;
+
+
+    }
+
+    .card-body {
+      display: flex;
+    }
+
+    .card-footer {
+      background: none;
+      border-top: none;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control,
+    .input-group-text {
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Optional: remove focus outline */
+    .form-control:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Optional: pointer cursor class if needed */
+    .pointerMouse {
+      cursor: pointer;
+    }
+
+    .toggle-password {
+      cursor: pointer;
+    }
+
+
+    ml-4 {
+      margin-left: 3px;
+    }
+
+    .modal.show .modal-dialog {
+      transform: none;
+      padding: 20px;
+      height: 95%;
+      margin-top: 40px;
+    }
+
+    .modal-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      color: var(--bs-modal-color);
+      pointer-events: auto;
+      overflow: scroll;
+      background-color: var(--bs-modal-bg);
+      background-clip: padding-box;
+      border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+      border-radius: var(--bs-modal-border-radius);
+      outline: 0;
+    }
+
+    /* Selected text in collapsed box */
+    .select2-container--bootstrap-5 .select2-selection__rendered {
+      color: #1a1919a8 !important;
+      font-weight: bold;
+    }
+
+    /* Selected item inside the dropdown */
+    .select2-container--bootstrap-5 .select2-results__option--selected {
+      color: #e3e0e0 !important;
+    }
+
+    .select2-container .select2-selection--single .select2-selection__rendered {
+      display: block;
+      padding-left: 8px;
+      padding-right: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: gray;
+      padding: 8px;
+      border-radius: 5px;
+    }
+
+    /* Hovered item in dropdown */
+    .select2-container--bootstrap-5 .select2-results__option--highlighted {
+      background-color: #62727e !important;
+      color: white !important;
+    }
+
+    .select2-results__option {
+      padding: 6px;
+      user-select: none;
+      -webkit-user-select: none;
+      background: #222731;
+    }
+
+    .select2-search--dropdown .select2-search__field {
+      width: 100%;
+      background: #453e54;
+      box-sizing: border-box;
+      padding: 8px;
+      outline: none;
+    }
+
+    .searchBar {
+      width: 350px;
+      display: flex;
+      border: 3px solid red;
+    }
+
+    .searchBar input {
+      width: 100%;
+      margin-left: 20px;
+      
+    }
+.flex{
+ display: flex;
+}
+.searchCon{
+  width: 400px;
+}
+.flex-col{
+  flex-direction: column;
+  width: 100%;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+   
+}
+
+.p-50{
+  padding: 50px;
+}
+.radius-10{
+  border-radius: 10px;
+
+}
+.text-accent {
+    --tw-text-opacity: 1;
+    color: rgb(16 185 129 / var(--tw-text-opacity, 1));
+}
+.w-64 {
+    width: 16rem;
+    padding: 20px;
+}
+.add-userbtn{
+  background-color: white;
+  color: purple;
+}
+main{
+  background-color: #0f7eb9;
+  height: 100%;
+}
+header.header {
+  background: linear-gradient(to right, #5f83f5, #6a5cf4); /* Gradient blue */
+  padding: 1rem 1.5rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+ .header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+  .search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+}
+
+  .search-bar input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  color: #555;
+  transition: all 0.2s ease-in-out;
+}
+
+ .search-bar input:focus {
+  outline: none;
+  border-color: #5f83f5;
+  box-shadow: 0 0 0 2px rgba(95, 131, 245, 0.3);
+}
+
+  .search-bar i {
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+  .dropdown .btn {
+  background: transparent;
+  border: none;
+  font-weight: 500;
+}
+
+  .dropdown .btn img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-right: 0.5rem;
+}
+
+ .dropdown .dropdown-menu {
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+  .dropdown .dropdown-item {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.p-20{
+    padding: 20px;
+}
+.bg-primary {
+    background-color: #007bff !important;
+}
+    .dashboard-container {
+
+      padding-top: 80px;
+      height: 100vh;
+    }
+
+    /* Modal base styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: -2;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* Modal header */
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #333;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    /* Ticket input group */
+    .ticket-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .ticket-group input {
+      padding: 10px;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .remove-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    /* Add more & footer */
+    .add-more-btn {
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .submit-btn {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      padding: 12px;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background-color: #bdc3c7;
+      color: #333;
+      border: none;
+      padding: 12px;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    /* Trigger button */
+    .open-modal-btn {
+      padding: 12px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+ .custom-modal.hidden {
+    display: none;
+  }
+
+  .custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .custom-modal-content {
+    position: relative;
+    background: #1e1e1e;
+    color: #fff;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 2;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .custom-modal-header,
+  .custom-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .custom-modal-header h2 {
+    margin: 0;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    width: auto;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    border: none;
+    color: white;
+    border-radius: 4px;
+  }
+
+  .form-group label {
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .custom-modal-footer {
+    margin-top: 20px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .submit-btn {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .cancel-btn {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .form-message {
+    font-size: 0.9em;
+    color: #f88;
+  }

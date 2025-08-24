@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ticket – Create Event</title>
+  <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+
+  <!-- vendor styles (unchanged) -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/fontawesome.min.css" />
+  <link rel="stylesheet" href="/css/animate.css" />
+  <link rel="stylesheet" href="/css/magnific-popup.css" />
+  <link rel="stylesheet" href="/css/odometer.css" />
+  <link rel="stylesheet" href="/css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css" />
+  <link rel="stylesheet" href="/css/nice-select.css" />
+  <link rel="stylesheet" href="/css/jquery.animatedheadline.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- ✨ override just for this page -->
+  <!-- ==========Override / page-specific styles========== -->
+  <style>
+    /* 1️⃣ centre the form card */
+    .event-form-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 60px;
+    }
+
+    /* 2️⃣ form-card look */
+    #event_form_id {
+      background: #0e1d35;
+      padding: 35px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 255, 200, 0.05);
+      max-width: 800px;
+      width: 100%;
+    }
+
+    /* 3️⃣ grid layout */
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px 32px;
+    }
+
+    /* let description + submit span full width */
+    .event-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    /* 4️⃣ unified field styling */
+    #event_form_id .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #event_form_id .type {
+      color: #00ffc3;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    #event_form_id input,
+    #event_form_id textarea,
+    #event_form_id select {
+      background: #09152b;
+      border: 1px solid #23375a;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    /* 5️⃣ submit button */
+    #event_form_id .filter-btn {
+      background: #00ffc3;
+      color: #01223e;
+      padding: 12px 26px;
+      border: 0;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background .25s;
+    }
+
+    #event_form_id .filter-btn:hover {
+      background: #00d2a8;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ==========Preloader========== -->
+  <div class="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-icon"><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- overlay / scroll-to-top -->
+  <div class="overlay"></div>
+  <a href="#" class="scrollToTop"><i class="fal fa-long-arrow-alt-up"></i></a>
+
+  <!-- ==========Header========== -->
+  <!-- <header class="header-section">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="logo"><a href="index.html"><img src="/img/logo/logo.png" alt="logo" /></a></div>
+        
+        <div class="header-bar d-lg-none"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header> -->
+
+  <!-- ==========Banner========== -->
+  <section class="banner-section">
+    <div class="banner-bg bg-fixed" style="background:url('/img/banner/banner-event.jpg')"></div>
+    <div class="container">
+      <div class="banner-content">
+        <h1 class="title bold">Create <span class="color-theme">Event</span></h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========Create-Event Section========== -->
+  <section class="search-ticket-section padding-top pt-lg-0">
+    <div class="container">
+      <!-- NEW flex wrapper to centre the card -->
+      <div class="event-form-wrapper">
+        <form id="event_form_id" enctype="multipart/form-data">
+          <!-- grid container -->
+          <div class="event-grid">
+            <div class="full text-center">
+              <h6 class="category mb-4 text-uppercase" style="color:#00ffc3">
+                Create New Event
+              </h6>
+            </div>
+            <!-- Organiser -->
+            <div class="form-group full">
+              <label class="type" for="organiser">Organiser</label>
+              <select id="organiserSelect" name="organiser_id" required>
+                <option value="">Select Organiser</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="type" for="event_Template">Upload Event Template</label>
+              <input type="file" id="event_Template" name="event_Template" accept="image/*" required />
+            </div>
+            <!-- Title -->
+            <div class="form-group full">
+              <label class="type" for="title">Title</label>
+              <input id="title" type="text" name="title" placeholder="Event Title" maxlength="150" required>
+            </div>
+
+            <!-- Description (full-width) -->
+            <div class="form-group full">
+              <label class="type" for="description">Description</label>
+              <textarea id="description" name="description" rows="4" placeholder="Event Description"
+                required></textarea>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group full">
+              <label class="type" for="location">Location</label>
+              <input id="location" type="text" name="location" placeholder="Event Location" maxlength="255" required>
+            </div>
+
+            <!-- Start -->
+            <div class="form-group full">
+              <label class="type" for="start">Start Date & Time</label>
+              <input id="start" type="datetime-local" name="start_datetime" required>
+            </div>
+
+            <!-- End -->
+            <div class="form-group full">
+              <label class="type" for="end">End Date & Time</label>
+              <input id="end" type="datetime-local" name="end_datetime" required>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group full">
+              <label class="type" for="status">Status</label>
+              <select id="status" name="status" required>
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            <!-- Submit (full-width) -->
+            <div class="form-group full text-end">
+              <div class="form-group full text-center">
+                <button type="submit" class="filter-btn">
+                  <i class="far fa-plus-square"></i>&nbsp;Create Event
+                </button>
+              </div>
+            </div>
+            <div id="message" class="mt-4 text-sm font-semibold"></div>
+          </div><!-- /.event-grid -->
+        </form>
+      </div><!-- /.event-form-wrapper -->
+    </div>
+  </section>
+
+  <!-- You can keep the rest of your template: event list, footer, etc. -->
+  <!-- … -->
+
+  <!-- ==========Scripts========== -->
+  <script src="/js/jquery-3.6.0.min.js"></script>
+  <script src="/js/modernizr-3.6.0.min.js"></script>
+  <script src="/js/plugins.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/heandline.js"></script>
+  <script src="/js/isotope.pkgd.min.js"></script>
+  <script src="/js/magnific-popup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/wow.min.js"></script>
+  <script src="/js/countdown.min.js"></script>
+  <script src="/js/odometer.min.js"></script>
+  <script src="/js/viewport.jquery.js"></script>
+  <script src="/js/nice-select.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/event.js"></script>
+</body>
+
+</html>
