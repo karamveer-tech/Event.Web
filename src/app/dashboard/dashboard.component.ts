@@ -7,17 +7,30 @@ import {
   ElementRef,
 } from '@angular/core';
 
+import { CommonModule, DatePipe } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventService, EventModel } from '../event-create-modal/event.service';
+import * as eventCreateModalComponent from '../event-create-modal/event-create-modal.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  imports: [CommonModule, DatePipe],
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('createEventModal') createEventModalRef!: ElementRef;
+  loading = false;
+  events: EventModel[] = [];
+  selectedEvent: EventModel | null = null; // event to edit
+  enableEdit = true;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private modalService: NgbModal, private eventService: EventService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.loadEvents();
+  }
 
   ngAfterViewInit(): void {
     [
@@ -41,8 +54,141 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     ].forEach((src) => this.loadScript(src));
   }
 
+  loadEvents(): void {
+    debugger
+    this.loading = true;
+    this.eventService.getEvents().subscribe({
+      next: (data: EventModel[]) => {
+        debugger
+        this.events = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching events:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+
+deleteEvent(eventId: number) {
+  if (confirm("Are you sure you want to delete this event?")) {
+    this.eventService.deleteEvent(eventId).subscribe({
+      next: (res) => {
+        alert("✅ Event deleted successfully!");
+        window.location.reload();
+
+      },
+      error: (err) => {
+        alert("❌ Failed to delete event. Please try again.");
+        this.loading = false;
+      }
+    });
+  }
+}
+
+
+
+  saveEvent(event: any) {
+    console.log('Save');
+  }
+
+
+
+
+
+  openEditEventModal(eventData: any): void {
+    this.eventService.getEventById(eventData.id).subscribe({
+      next: (res: any) => {
+        // Normalize ticketType
+        const normalizedTicketType =
+          res.ticketType?.toLowerCase() === 'paid' ? 'Paid' : 'Free';
+
+        const normalizedStatus =
+          res.status?.toLowerCase() === 'draft' ? 'draft' : 'published';
+        // Prepare event data for modal
+        const eventForModal = {
+          ...res,
+          ticketType: normalizedTicketType,
+          status: normalizedStatus,
+          freeSeats: res.freeSeats || 0,
+          paidTickets: Array.isArray(res.paidTickets) && res.paidTickets.length
+            ? res.paidTickets.map((t: any) => ({
+              name: t.name || '',
+              seats: t.seats || '',
+              price: t.price || ''
+            }))
+            : [{ name: '', seats: '', price: '' }],
+          banner: res.banner_path
+            ? { url: res.banner_path, name: this.extractFileName(res.banner_path) }
+            : null
+          // csvFile: res.csvFile_path
+          //   ? { url: res.csvFile_path, name: this.extractFileName(res.csvFile_path) }
+          //   : null,
+          // images: Array.isArray(res.images)
+          //   ? res.images.map((img: any) => ({
+          //     url: img.url || img,
+          //     name: this.extractFileName(img.url || img)
+          //   }))
+          //   : []
+        };
+
+        // Open modal
+        const modalRef = this.modalService.open(
+          eventCreateModalComponent.EventCreateModalComponent,
+          {
+            size: 'lg',
+            backdrop: 'static',
+            keyboard: false
+          }
+        );
+
+        modalRef.componentInstance.event = eventForModal;
+        modalRef.componentInstance.bannerPreview = eventForModal.banner?.url || null;
+        // modalRef.componentInstance.imagesPreview =
+        //   eventForModal.images?.map((img: any) => img.url) || [];
+
+        modalRef.componentInstance.currentTab = 1;
+
+        modalRef.result
+          .then((result) => {
+            if (result) {
+              console.log('Event updated:', result);
+            }
+          })
+          .catch(() => {
+            console.log('Modal dismissed');
+          });
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch event:', err);
+      }
+    });
+  }
+
+
+  private extractFileName(path: string): string {
+    return path?.split('/').pop() || '';
+  }
+
+
   openCreateEventModal(): void {
-    this.createEventModalRef.nativeElement.classList.remove('hidden');
+
+    // this.createEventModalRef.nativeElement.classList.remove('hidden');
+    const modalRef = this.modalService.open(eventCreateModalComponent.EventCreateModalComponent, {
+      size: 'lg',   // large modal
+      backdrop: 'static',  // disable closing when clicking outside
+      keyboard: false      // disable ESC close
+    });
+
+    // get data when modal closes
+    modalRef.result.then((result) => {
+      if (result) {
+       this.loadEvents();
+      }
+    }).catch(() => {
+      console.log('Modal dismissed');
+    });
   }
 
   closeCreateEventModal(): void {

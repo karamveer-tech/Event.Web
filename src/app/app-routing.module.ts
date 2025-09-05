@@ -24,7 +24,10 @@ const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
   },
-
+  {
+    path: 'edit-event/:id', 
+    loadComponent: () => import('./event-create-modal/event-create-modal.component').then(m => m.EventCreateModalComponent)
+  },
   // Static HTML routes using StaticPageComponent
   { path: 'about', component: StaticPageComponent, data: { htmlFile: 'about' } },
   { path: 'apps-download', component: StaticPageComponent, data: { htmlFile: 'apps-download' } },

@@ -89,22 +89,45 @@
           </div>
         </div>
 
-        <div id="events_list" class="tab-content hidden">
+        <!-- <div id="events_list" class="tab-content hidden">
           <h2 class="text-white text-2xl mt-4 mb-4 ">Event List</h2>
           <div class="mb-3 w-[280px]     ">
-         <!-- Trigger button -->
-<button (click)="openCreateEventModal()" style="font-size: 32px;" class="rounded-md m-4 bg-primary text-light  text-xxl-center   font-weight-bold">Create Event</button>
+        <button (click)="openCreateEventModal()" style="font-size: 32px;" class="rounded-md m-4 bg-primary text-light  text-xxl-center   font-weight-bold">Create Event</button>
 
-            <!-- <div class="mb-3">
-            <button class="btn btn-success" (click)="openCreateEventModal()">
-  Create Event
-</button> -->
           </div>
           <div class="row flex    gap-5 justify-content-center" id="eventListContainer">
           </div>
 
 
-        </div>
+        </div> -->
+
+<!-- 
+        <div id="events_list" class="tab-content hidden">
+  <h2 class="text-white text-2xl mt-4 mb-4">Event List</h2>
+
+  <div class="mb-3 w-[280px]">
+    <button 
+      (click)="openCreateEventModal()" 
+      style="font-size: 32px;" 
+      class="rounded-md m-4 bg-primary text-light text-xxl-center font-weight-bold">
+      Create Event
+    </button>
+  </div>
+
+  <div class="row flex gap-5 justify-content-center" id="eventListContainers">
+    <div *ngIf="loading" class="text-white">Loading events...</div>
+{{events}}
+    <div *ngFor="let event of events" class="card p-3 w-[300px] bg-gray-800 text-white rounded-xl shadow">
+      <h3 class="text-lg font-bold">{{ event.title }}</h3>
+      <p>{{ event.description }}</p>
+      <p><b>Location:</b> {{ event.location }}</p>
+      <p><b>Start:</b> {{ event.start_datetime | date:'short' }}</p>
+      <p><b>End:</b> {{ event.end_datetime | date:'short' }}</p>
+      <p><b>Status:</b> {{ event.status }}</p>
+    </div>
+  </div>
+</div>
+
      
 
     <div id="settings" class="tab-content hidden">
@@ -115,8 +138,91 @@
 
   </div>
 
+  </div>-->
+<!-- 
+ <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Events Dashboard</h2>
+   <button (click)="openCreateEventModal()" style="font-size: 32px;" class="rounded-md m-4 bg-primary text-light  text-xxl-center   font-weight-bold">Create Event</button>
   </div>
-   
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <div class="row" *ngIf="!loading && events.length">
+    <div class="col-md-6 col-lg-4 mb-3" *ngFor="let event of events">
+      <div class="card h-100">
+        <img [src]="event.banner_path" class="card-img-top" style="height:200px; object-fit:cover;" alt="Event Banner">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ event.title }}</h5>
+          <p class="card-text">{{ event.description }}</p>
+          <p class="mb-1"><strong>Location:</strong> {{ event.location }}</p>
+          <p class="mb-1"><strong>Status:</strong> {{ event.status }}</p>
+          <p class="mb-1"><strong>Start:</strong> {{ event.start | date:'short' }}</p>
+          <p class="mb-1"><strong>End:</strong> {{ event.end | date:'short' }}</p>
+
+          <div class="mt-auto d-flex justify-content-between">
+            <button class="btn btn-sm btn-success" (click)="saveEvent(event)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteEvent(event.id)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && events.length === 0" class="text-center mt-5">
+    <p>No events available.</p>
+  </div> -->
+<button (click)="openCreateEventModal()" style="font-size: 32px;" class="rounded-md mt-4 bg-primary text-light text-xxl-center font-weight-bold">Create Event</button>
+<div class="container mt-4">
+  
+  <div class="row">
+    <div class="col-md-12 col-lg-12 mb-4" *ngFor="let event of events">
+      <div class="card h-100 shadow-sm">
+        <!-- Banner Image -->
+        <img  [src]="event.banner_path" 
+          class="card-img-top img-fluid" 
+          style="height:800px; object-fit:cover; width:100%;" 
+          alt="Event Banner">
+
+        <div class="card-body">
+          <!-- Title -->
+          <h5 class="card-title">{{ event.title }}</h5>
+
+          <!-- Description -->
+          <p class="card-text">{{ event.description }}</p>
+
+          <!-- Location -->
+          <p class="mb-1"><strong>Location:</strong> {{ event.location }}</p>
+
+          <!-- Status -->
+          <p class="mb-1"><strong>Status:</strong> {{ event.status }}</p>
+
+          <!-- Start & End Dates -->
+          <p class="mb-1"><strong>Start:</strong> {{ event.start_datetime}}</p>
+          <p class="mb-1"><strong>End:</strong> {{ event.end_datetime}}</p>
+
+          <!-- Ticket Type -->
+          <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>
+        </div>
+
+        <!-- Card Footer: Actions -->
+        <div class="card-footer d-flex justify-content-between">
+           <button class="btn btn-primary btn-sm mr-2" (click)="openEditEventModal(event)">Edit Details</button>
+          <!-- <button class="btn btn-primary btn-sm mr-2" (click)="openCreateEventModal()">View Details</button> -->
+          <button class="btn btn-danger btn-sm mr-2" (click)="deleteEvent(event.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="events.length === 0" class="text-center mt-5">
+    <p>No events available.</p>
+  </div>
+</div>
+
+
 
  <!-- Custom Create Event Modal -->
 <div #createEventModal class="custom-modal hidden">

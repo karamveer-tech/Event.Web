@@ -43,6 +43,7 @@ $(document).ready(function () {
   // Submit create event form
   $("#event_form_id").on("submit", async function (e) {
     e.preventDefault();
+    debugger;
     const formData = new FormData(this);
     formData.set("start_datetime", toIso(formData.get("start_datetime")));
     formData.set("end_datetime", toIso(formData.get("end_datetime")));
@@ -74,19 +75,20 @@ $(document).ready(function () {
 
   // Load and render events
   function loadEvents() {
+    debugger
     $eventListContainer.html('<div class="text-white">Loading events...</div>');
 
-    $.ajax({
-      url: `${CONFIG.API_BASE_URL}/api/Event/get-all-events`,
-      type: "GET",
-      success: function (events) {
-        allEvents = events; // ✅ Store globally
-        renderEventList(events);
-      },
-      error: function () {
-        $eventListContainer.html(`<div class="text-danger">Error loading events.</div>`);
-      },
-    });
+    // $.ajax({
+    //   url: `${CONFIG.API_BASE_URL}/api/Event/get-all-events`,
+    //   type: "GET",
+    //   success: function (events) {
+    //     allEvents = events; // ✅ Store globally
+    //     renderEventList(events);
+    //   },
+    //   error: function () {
+    //     $eventListContainer.html(`<div class="text-danger">Error loading events.</div>`);
+    //   },
+    // });
   }
 
   // Render event list to DOM
@@ -114,7 +116,7 @@ $(document).ready(function () {
               </div>
             </div>
             <div class="movie-content mt-3 ">
-              <h5 class="title m-0 text-dark">${event.title}</h5>
+              <h5 class="title m-0 text-dark">${event.title} </h5>
               <div class="movie-rating-percent mt-2 d-flex justify-content-between flex-wrap">
                 <div class="me-2">
                   <h6 class="m-0 text-dark"><i class="text-dark fa fa-map-marker-alt me-1"></i> ${event.location}</h6>

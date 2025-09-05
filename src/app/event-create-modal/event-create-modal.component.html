@@ -1,49 +1,243 @@
 <div class="modelCon">
-<div class="modal-header">
-  <h5 class="modal-title">Create Event</h5>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
-</div>
-
-<form (ngSubmit)="onSubmit()" #eventForm="ngForm">
-  <div class="modal-body">
-    <div class="mb-3">
-      <label class="form-label">Title</label>
-      <input type="text" class="form-control" name="title" [(ngModel)]="event.title" required />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Description</label>
-      <textarea class="form-control" name="description" [(ngModel)]="event.description" required></textarea>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Location</label>
-      <input type="text" class="form-control" name="location" [(ngModel)]="event.location" required />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Start Time</label>
-      <input type="datetime-local" class="form-control" name="start" [(ngModel)]="event.start" required />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">End Time</label>
-      <input type="datetime-local" class="form-control" name="end" [(ngModel)]="event.end" required />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Status</label>
-      <select class="form-select" name="status" [(ngModel)]="event.status" required>
-        <option value="Scheduled">Scheduled</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Completed">Completed</option>
-      </select>
-    </div>
+  <div class="modal-header">
+    <h5 class="modal-title">Create Event</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
-    <button type="submit" class="btn btn-primary" [disabled]="!eventForm.form.valid">Save</button>
+  <form (ngSubmit)="submitEvent()" #eventForm="ngForm">
+    <!-- Tabs -->
+    <ul class="nav nav-tabs sticky-tabs">
+    <li class="nav-item">
+      <button type="button" class="nav-link" [class.active]="currentTab === 1" (click)="goToTab(1)">Event Details</button>
+    </li>
+    <li class="nav-item">
+      <button type="button" class="nav-link" [class.active]="currentTab === 2" (click)="goToTab(2)">Tickets</button>
+    </li>
+    <li class="nav-item">
+      <button type="button" class="nav-link" [class.active]="currentTab === 3" (click)="goToTab(3)">Uploads</button>
+    </li>
+    <li class="nav-item">
+      <button type="button" class="nav-link" [class.active]="currentTab === 4" (click)="goToTab(4)">Summary</button>
+    </li>
+  </ul>
+
+
+    <!-- Tab Content -->
+    <div class="tab-content p-3 border border-top-0">
+
+      <!-- TAB 1 -->
+
+      <div *ngIf="currentTab === 1">
+        <div class="mb-3">
+          <label class="form-label">Event Name</label>
+          <input type="text" class="form-control" [(ngModel)]="event.title" name="title" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Start Time</label>
+          <input type="datetime-local" class="form-control" [(ngModel)]="event.start_datetime" name="start" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">End Time</label>
+          <input type="datetime-local" class="form-control" [(ngModel)]="event.end_datetime" name="end" required />
+        </div>
+        <!-- <div class="mb-3">
+          <label class="form-label">Event Location</label>
+          <google-map height="300px" width="100%" [center]="center" [zoom]="zoom" (mapClick)="mapClicked($event)">
+           <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+          </google-map>
+          <small class="form-text text-muted">Click on the map to select the event location.</small>
+          <p *ngIf="event.location"><strong>Selected Coordinates:</strong> {{ event.location }}</p>
+        </div> -->
+        <div class="mb-3">
+        <label class="form-label">Event Location</label>
+        
+        <!-- Address Input -->
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter event address"
+          #addressInput />
+
+        <google-map
+          height="300px"
+          width="100%"
+          [center]="center"
+          [zoom]="zoom">
+          <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+        </google-map>
+
+        <small class="form-text text-muted">Type address or click on the map to select location.</small>
+        <p *ngIf="event.location"><strong>Selected Coordinates:</strong> {{ event.location }}</p>
+      </div>
+
+      </div>
+
+      <!-- TAB 2 -->
+     <div *ngIf="currentTab === 2" class="ticket-section">
+  <h4>Select Ticket Type:</h4>
+
+  <div class="radio-group">
+    <label>
+      <input
+        type="radio"
+        name="ticketType"
+        value="Free"
+        [(ngModel)]="event.ticketType"
+        (change)="onTicketTypeChange('Free')"
+      />
+      Free
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="ticketType"
+        value="Paid"
+        [(ngModel)]="event.ticketType"
+        (change)="onTicketTypeChange('Paid')"
+      />
+      Paid
+    </label>
   </div>
-</form>
+
+
+        <!-- Free Ticket Input -->
+        <div *ngIf="event.ticketType === 'Free'" class="ticket-form">
+          <label>Number of Seats (required):</label>
+          <input type="number" [(ngModel)]="event.freeSeats" name="freeSeats" min="1" required />
+        </div>
+
+        <!-- Paid Ticket Inputs -->
+        <div *ngIf="event.ticketType === 'Paid'" class="ticket-form">
+          <div *ngFor="let ticket of (event.paidTickets ?? []); let i = index" class="paid-ticket-row">
+            <div class="form-group">
+              <label>Name of Ticket:</label>
+              <input type="text" [(ngModel)]="ticket.name" name="ticketName{{i}}" required />
+            </div>
+
+            <div class="form-group">
+              <label>Number of Seats:</label>
+              <input type="number" [(ngModel)]="ticket.seats" name="ticketSeats{{i}}" min="1" required />
+            </div>
+
+            <div class="form-group">
+              <label>Price:</label>
+              <input type="number" [(ngModel)]="ticket.price" min="0" name="ticketPrice{{i}}" required />
+            </div>
+
+            <button type="button" class="remove-btn" (click)="removePaidTicket(i)"
+              *ngIf="(event.paidTickets ?? []).length > 1">
+              Remove
+            </button>
+          </div>
+
+          <button type="button" class="add-btn" (click)="addPaidTicket()">
+            Add Ticket
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 3 -->
+      <div *ngIf="currentTab === 3">
+        <div class="mb-3">
+          <label class="form-label">Upload Banner</label>
+          <input type="file" class="form-control" (change)="onBannerUpload($event)" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Upload Images</label>
+           <input type="file" class="form-control" (change)="onImageUpload($event)" />
+          <!-- <label class="form-label">Upload CSV</label>
+          <input type="file" class="form-control" (change)="onCSVUpload($event)" /> -->
+        </div>
+      </div>
+
+      <!-- TAB 4 -->
+      <div *ngIf="currentTab === 4">
+        <h5>Summary</h5>
+        <div class="card mb-3 p-3">
+          <h6>Event Details</h6>
+          <p><strong>Event Name:</strong> {{ event.title }}</p>
+          <p><strong>Start Time:</strong> {{ event.start_datetime | date:'short' }}</p>
+          <p><strong>End Time:</strong> {{ event.end_datetime | date:'short' }}</p>
+          <!-- <p><strong>Description:</strong> {{ event.description || 'N/A' }}</p>
+          <p><strong>Location:</strong> {{ event.location || 'N/A' }}</p> -->
+        </div>
+
+        <!-- Tickets Card -->
+        <div class="card mb-3 p-3">
+          <h6>Tickets</h6>
+          <p><strong>Type:</strong> {{ event.ticketType }}</p>
+
+          <!-- Free tickets -->
+          <div *ngIf="event.ticketType === 'Free'">
+            <p><strong>Number of Seats:</strong> {{ event.freeSeats }}</p>
+          </div>
+
+          <!-- Paid tickets -->
+          <div *ngIf="event.ticketType === 'Paid' && event.paidTickets?.length">
+            <ul>
+              <li *ngFor="let ticket of event.paidTickets; let i = index">
+                <strong>Ticket {{ i + 1 }}:</strong>
+                Name: {{ ticket.name }},
+                Seats: {{ ticket.seats }},
+                Price: {{ ticket.price | currency }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Uploads Card -->
+        <div class="card mb-3 p-3">
+          <h6>Uploads</h6>
+
+          <p><strong>Banner:</strong> {{ event.banner?.name || 'Not uploaded' }}</p>
+          <div *ngIf="bannerPreview" class="banner-preview mb-2">
+            <img [src]="bannerPreview" alt="Banner" class="img-thumbnail" style="max-width: 200px;" />
+          </div>
+
+           <p><strong>Images:</strong> {{ event.images?.name || 'Not uploaded' }}</p>
+          <div *ngIf="imagesPreview" class="images-preview mb-2">
+            <img [src]="imagesPreview" alt="Images" class="img-thumbnail" style="max-width: 200px;" />
+          </div>
+
+
+          <!-- <p><strong>CSV File:</strong> {{ event.csvFile?.name || 'Not uploaded' }}</p>
+          <div *ngIf="csvPreview" class="csv-preview mb-2">
+            <pre style="max-height:150px; overflow:auto; background:#f8f9fa; padding:10px;">
+{{ csvPreview }}
+      </pre>
+          </div> -->
+        </div>
+         <div class="form-group ml-3 mr-3">
+          <label for="status">Status</label>
+          <select id="status" name="status" required>
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+            <!-- <option value="cancelled">Cancelled</option> -->
+          </select>
+    </div>
+      </div>
+    </div>
+   
+
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="prevTab()"
+        [disabled]="currentTab === 1">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="nextTab()" [disabled]="isNextDisabled()"
+        *ngIf="currentTab < 4">Next</button>
+
+      <button type="submit" class="btn btn-success" *ngIf="currentTab === 4">Create Event</button>
+    </div>
+  </form>
+
 </div>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcFSb86CXbGl1Lftb5zdqOJEA1OFhfcVg&libraries=places"
+  async
+  defer>
+</script>
