@@ -12,3 +12,98 @@
   font-family: "Open Sans", sans-serif;
   background: #001232;
 }
+/* ====== Full width search bar styling ====== */
+.search-ticket-section {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2.5rem; /* space below the strip */
+}
+
+/* the full-width visual strip (edge-to-edge) */
+.search-bar-wrap {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(2,18,57,0.98) 0%, rgba(5,37,76,0.95) 100%);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  padding: 28px 0; /* vertical padding of the strip */
+}
+
+/* inner container keeps content centered and constrained */
+.search-bar-inner {
+  max-width: 1200px; /* change if you want wider */
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Search input + button layout */
+.ticket-search-form .form-group.large {
+  gap: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* input styles */
+.ticket-search-form .search-input {
+  flex: 1;
+  height: 56px;
+  border-radius: 40px;
+  padding: 0 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.02);
+  color: #ffffff;
+  outline: none;
+  font-size: 16px;
+}
+
+/* placeholder color */
+.ticket-search-form .search-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* search button */
+.ticket-search-form .search-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #11314f;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 6px 18px rgba(8,38,63,0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .search-bar-wrap { padding: 18px 0; }
+  .ticket-search-form .search-input { height: 48px; font-size: 15px; }
+  .ticket-search-form .search-btn { width: 48px; height: 48px; }
+  .search-ticket-header .title { font-size: 20px; }
+}
+
+/* ensure banner background covers full width nicely */
+.banner-section .banner-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+/* if your navbar is fixed, reserve top space so content won't hide under the navbar */
+.main-container {
+  /* change 72px to your navbar height if different */
+  padding-top: 72px;
+}
+/* Ensure full-width background for events section */
+.movie-section.bg-two {
+  width: 100%;
+  background: #0d1b2a; /* adjust your background color */
+}
+
+/* Add padding for inner content */
+.section-header-1,
+#events_list {
+  max-width: 1200px; /* keeps content from stretching too wide */
+  margin: 0 auto;
+}

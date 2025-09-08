@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
+import { EventModel, EventService } from '../event-create-modal/event.service';
   
 
 @Component({
@@ -11,13 +12,16 @@ import { SharedModule } from '../shared/shared.module';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss'],
 })
-export class EventsComponent implements OnInit, AfterViewInit {
-  
-  constructor(private renderer: Renderer2) {}
+export class EventsComponent implements OnInit {
+    loading = false;
+  events: EventModel[] = [];
+  constructor(private eventService: EventService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadEvents();
+  }
 
-  ngAfterViewInit() {
+  //ngAfterViewInit() {
     // Load CSS
     // [
     //   'assets/css/bootstrap.min.css',
@@ -53,8 +57,38 @@ export class EventsComponent implements OnInit, AfterViewInit {
     //   'assets/js/footer.js',
     //   'assets/js/dashboard.js',
     // ].forEach(src => this.loadScript(src));
-  }
+    //this.loadEvents();
+ // }
 
+  loadEvents(): void {
+    debugger
+    this.loading = true;
+    this.eventService.getEvents().subscribe({
+      next: (data: EventModel[]) => {
+        debugger
+        this.events = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching events:', err);
+        this.loading = false;
+      }
+    });
+  }
+  getEventDetails(eventId :number): void{
+    debugger
+    this.loading = true;
+    this.eventService.getEventById(eventId).subscribe(
+      (data: EventModel) => {
+        debugger;
+        this.events = [data];
+        this.loading = false;
+      },
+      (err) => {
+        console.error('Error fetching event:', err);
+        this.loading = false;
+      });
+  }
   // loadStyle(href: string) {
   //   const link = this.renderer.createElement('link');
   //   link.rel = 'stylesheet';

@@ -7,7 +7,7 @@ $(document).ready(function () {
   loadOrganisers();
 
   // Load events initially
-  loadEvents();
+ // loadEvents();
 
   // Tab navigation
   $(".tab-link").on("click", function (e) {
@@ -16,7 +16,7 @@ $(document).ready(function () {
     $(".tab-content").addClass("hidden");
     $("#" + tabId).removeClass("hidden");
     if (tabId === "events_list" && !eventsLoadedOnce) {
-      loadEvents();
+      //loadEvents();
       eventsLoadedOnce = true;
     }
   });
@@ -63,7 +63,7 @@ $(document).ready(function () {
         $msg.text("✅ Event created successfully!").css("color", "green");
         this.reset();
         $("#create_event_model").modal("hide");
-        loadEvents(); // refresh list
+       // loadEvents(); // refresh list
         eventsLoadedOnce = true;
       } else {
         $msg.text(`❌ Failed: ${data.message || raw}`).css("color", "red");
@@ -93,45 +93,45 @@ $(document).ready(function () {
 
   // Render event list to DOM
   function renderEventList(events) {
-    $eventListContainer.empty();
+    // $eventListContainer.empty();
 
-    if (!Array.isArray(events) || events.length === 0) {
-      $eventListContainer.append(`<div class="text-white">No events found.</div>`);
-      return;
-    }
+    // if (!Array.isArray(events) || events.length === 0) {
+    //   $eventListContainer.append(`<div class="text-white">No events found.</div>`);
+    //   return;
+    // }
 
-    events.forEach((event) => {
-      const eventDate = new Date(event.start_datetime);
-      const day = eventDate.getDate();
-      const month = eventDate.toLocaleString("default", { month: "short" });
+    // events.forEach((event) => {
+    //   const eventDate = new Date(event.start_datetime);
+    //   const day = eventDate.getDate();
+    //   const month = eventDate.toLocaleString("default", { month: "short" });
 
-      const html = `
-        <div class="col-sm-6 col-lg-6 mb-4">
-          <div class="event-grid border p-3 bg-white text-dark rounded shadow-sm h-100 event-card" data-id="${event.id}" style="cursor: pointer;">
-            <div class="movie-thumb c-thumb position-relative">
-              <img src="${event.template_path}" alt="event" class="img-fluid rounded w-100">
-              <div class="event-date position-absolute top-0 start-0 bg-primary text-white p-2 text-center" style="z-index: 1;">
-                <h6 class="date-title m-0">${day}</h6>
-                <span class="small">${month}</span>
-              </div>
-            </div>
-            <div class="movie-content mt-3 ">
-              <h5 class="title m-0 text-dark">${event.title} </h5>
-              <div class="movie-rating-percent mt-2 d-flex justify-content-between flex-wrap">
-                <div class="me-2">
-                  <h6 class="m-0 text-dark"><i class="text-dark fa fa-map-marker-alt me-1"></i> ${event.location}</h6>
-                </div>
-                <div>
-                  <h6 class="m-0 text-dark"><i class="text-dark fa fa-shopping-cart me-1"></i> ${event.status}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
+    //   const html = `
+    //     <div class="col-sm-6 col-lg-6 mb-4">
+    //       <div class="event-grid border p-3 bg-white text-dark rounded shadow-sm h-100 event-card" data-id="${event.id}" style="cursor: pointer;">
+    //         <div class="movie-thumb c-thumb position-relative">
+    //           <img src="${event.template_path}" alt="event" class="img-fluid rounded w-100">
+    //           <div class="event-date position-absolute top-0 start-0 bg-primary text-white p-2 text-center" style="z-index: 1;">
+    //             <h6 class="date-title m-0">${day}</h6>
+    //             <span class="small">${month}</span>
+    //           </div>
+    //         </div>
+    //         <div class="movie-content mt-3 ">
+    //           <h5 class="title m-0 text-dark">${event.title} </h5>
+    //           <div class="movie-rating-percent mt-2 d-flex justify-content-between flex-wrap">
+    //             <div class="me-2">
+    //               <h6 class="m-0 text-dark"><i class="text-dark fa fa-map-marker-alt me-1"></i> ${event.location}</h6>
+    //             </div>
+    //             <div>
+    //               <h6 class="m-0 text-dark"><i class="text-dark fa fa-shopping-cart me-1"></i> ${event.status}</h6>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   `;
 
-      $eventListContainer.append(html);
-    });
+    //   $eventListContainer.append(html);
+    // });
   }
 
   // Search input filtering

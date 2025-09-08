@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'blog-details', component: StaticPageComponent, data: { htmlFile: 'blog-details' } },
   { path: 'contact', component: StaticPageComponent, data: { htmlFile: 'contact' } },
   { path: 'dashboard2', component: StaticPageComponent, data: { htmlFile: 'dasboard' } },
-  { path: 'events', component: StaticPageComponent, data: { htmlFile: 'events' } },
+  // { path: 'events', component: StaticPageComponent, data: { htmlFile: 'events' } },
   { path: 'event-checkout', component: StaticPageComponent, data: { htmlFile: 'event-checkout' } },
   { path: 'event-details2', component: StaticPageComponent, data: { htmlFile: 'event-details' } },
   { path: 'event-ticket', component: StaticPageComponent, data: { htmlFile: 'event-ticket' } },

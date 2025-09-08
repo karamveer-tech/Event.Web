@@ -1,5 +1,5 @@
  
-<ion-content  >
+<ion-content>
     <div class="body">
 
   <section class="banner-section">
@@ -177,7 +177,53 @@
 
 
     <!-- ==========Event-Section========== -->
-    <section class="event-section padding-top padding-bottom">
+         <!-- Event List -->
+      <div class="w-100 tab-content" id="events_list">
+       <h1 class="text-white text-3xl font-bold mb-4 text-center">
+  Event List
+</h1>
+
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 mb-4" *ngFor="let event of events">
+              <div class="card h-100 shadow-sm">
+                <!-- Banner Image -->
+                <img [src]="event.banner_path" class="card-img-top img-fluid"
+                  style="height:200px; object-fit:cover; width:100%;" alt="Event Banner">
+
+                <div class="card-body">
+                  <!-- Title -->
+                  <h5 class="card-title">{{ event.title }}</h5>
+
+                  <!-- Description -->
+                  <p class="card-text">{{ event.description }}</p>
+
+                  <!-- Location -->
+                  <p class="mb-1"><strong>Location:</strong> {{ event.location }}</p>
+
+                  <!-- Status -->
+                  <p class="mb-1"><strong>Status:</strong> {{ event.status }}</p>
+
+                  <!-- Start & End Dates -->
+                  <p class="mb-1"><strong>Start:</strong> {{ event.start_datetime}}</p>
+                  <p class="mb-1"><strong>End:</strong> {{ event.end_datetime}}</p>
+
+                  <!-- Ticket Type -->
+                  <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div *ngIf="events.length === 0" class="text-center mt-5">
+            <p>No events available.</p>
+          </div>
+        </div>
+      </div>
+
+    <!-- <section class="event-section padding-top padding-bottom">
         <div class="container">
             <div class="row flex-wrap-reverse justify-content-center">
                 <div class="col-sm-10 col-md-8 col-lg-3">
@@ -265,7 +311,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
     <app-footer></app-footer>
