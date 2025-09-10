@@ -210,6 +210,9 @@
 
                   <!-- Ticket Type -->
                   <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>
+                     <div class="mt-auto">
+                        <button class="btn btn-sm btn-success w-100" (click)="getEventDetails(event.id)">View Details</button>
+                    </div>
                 </div>
 
               </div>

@@ -74,32 +74,32 @@ export class EventCreateModalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // initialize autocomplete
-    const autocomplete = new google.maps.places.Autocomplete(
-      this.addressInput.nativeElement,
-      {
-        types: ['geocode'] // or 'address'
-      }
-    );
-    autocomplete.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        const place = autocomplete.getPlace();
+    // const autocomplete = new google.maps.places.Autocomplete(
+    //   this.addressInput.nativeElement,
+    //   {
+    //     types: ['geocode'] // or 'address'
+    //   }
+    // );
+    // autocomplete.addListener('place_changed', () => {
+    //   this.ngZone.run(() => {
+    //     const place = autocomplete.getPlace();
 
-        if (!place.geometry || !place.geometry.location) {
-          return;
-        }
+    //     if (!place.geometry || !place.geometry.location) {
+    //       return;
+    //     }
 
-        // set map center and marker
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
+    //     // set map center and marker
+    //     const lat = p  lace.geometry.location.lat();
+    //     const lng = place.geometry.location.lng();
 
-        this.center = { lat, lng };
-        this.markerPosition = { lat, lng };
+    //     this.center = { lat, lng };
+    //     this.markerPosition = { lat, lng };
 
-        // save address & coords
-        this.event.address = place.formatted_address;
-        this.event.location = `${lat}, ${lng}`;
-      });
-    });
+    //     // save address & coords
+    //     this.event.address = place.formatted_address;
+    //     this.event.location = `${lat}, ${lng}`;
+    //   });
+    // });
   }
   // CSV upload
   // onCSVUpload(event: any) {

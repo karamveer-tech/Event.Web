@@ -1,4 +1,4 @@
-<ion-content>
+<!-- <ion-content> -->
     <div class="body">
         <!-- ==========Preloader========== -->
         <div class="preloader">
@@ -33,7 +33,7 @@
 
         <!-- ==========Event-Book-Search========== -->
 
-        <section class="event-book-search ">
+        <!-- <section class="event-book-search ">
             <div class="container">
                 <div class="event-search">
                     <div class="event-search-top">
@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- ==========Event-Book-Search========== -->
 
@@ -208,7 +208,7 @@
 
         <!-- ==========Speaker-Section========== -->
 
-        <section class="speaker-section padding-bottom padding-top">
+        <!-- <section class="speaker-section padding-bottom padding-top">
             <div class="container">
                 <div class="section-header-3">
                     <span class="cate">speakers</span>
@@ -315,12 +315,12 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- ==========Speaker-Section========== -->
 
         <!-- ==========Event-Section========== -->
-        <section class="event-details padding-bottom">
+        <!-- <section class="event-details padding-bottom">
             <div class="container">
                 <div class="section-header-3">
                     <span class="cate">SPONSORS</span>
@@ -359,74 +359,111 @@
 
                 </div>
             </div>
-        </section>
-        <!-- ==========Event-Section========== -->
+        </section> -->
+     
+     
+     
+     <div class="container my-4" *ngIf="events">
+  <!-- Banner -->
+  <div class="row">
+    <div class="col-12">
+      <img
+        [src]="events.banner_path"
+        alt="Event Banner"
+        class="img-fluid rounded shadow-sm w-100"
+        style="max-height: 400px; object-fit: cover;"
+      />
+    </div>
+  </div>
 
-        <!-- <section class="event-details padding-bottom">
-    <div class="container">
-      <div class="section-header-3">
-        <span class="cate">SPONSORS</span>
-        <h2 class="title">Partners & Sponsors</h2>
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout.
-        </p>
+  <!-- Event Info -->
+  <div class="row mt-4">
+    <div class="col-12 col-md-8">
+      <h2 class="fw-bold">{{ events.title }}</h2>
+      <p class="text-muted">{{ events.description }}</p>
+      <p>
+        <i class="fa-solid fa-location-dot me-2"></i>
+        {{ events.location }} - {{ events.address }}
+      </p>
+      <p>
+        <i class="fa-regular fa-calendar me-2"></i>
+        {{ events.start_datetime | date:'medium' }} → {{ events.end_datetime | date:'medium' }}
+      </p>
+    </div>
+
+    <!-- Ticket Info -->
+    <div class="col-12 col-md-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Tickets</h5>
+
+          <!-- Free Ticket -->
+          <div *ngIf="events.ticketType === 'Free'">
+            <p><strong>Type:</strong> Free</p>
+            <p><strong>Seats:</strong> {{ events.freeSeats ?? 'Unlimited' }}</p>
+          </div>
+
+          <!-- Paid Tickets -->
+          <div *ngIf="events.ticketType === 'Paid'">
+            <p><strong>Type:</strong> Paid</p>
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered align-middle text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>Name</th>
+                    <th>Seats</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ticket of events.paidTickets">
+                    <td>{{ ticket.name }}</td>
+                    <td>{{ ticket.seats ?? 'N/A' }}</td>
+                    <td>{{ ticket.price | currency }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <swiper
-        [slidesPerView]="getSlidesPerView()"
-        [spaceBetween]="20"
-        [loop]="true"
-        [autoplay]="{ delay: 2000 }"
-        [breakpoints]="{
-          '576': { 'slidesPerView': 3 },
-          '768': { 'slidesPerView': 4 },
-          '992': { 'slidesPerView': 5 }
+  <!-- Status -->
+  <div class="row mt-3">
+    <div class="col-12">
+      <span
+        class="badge"
+        [ngClass]="{
+          'bg-success': events.status === 'Published',
+          'bg-secondary': events.status === 'Draft'
         }"
       >
-        <ng-container *ngFor="let sponsor of sponsors">
-          <ng-template swiperSlide>
-            <div class="sponsor-thumb">
-              <a href="#">
-                <img [src]="sponsor.img" alt="sponsor" />
-              </a>
-            </div>
-          </ng-template>
-        </ng-container>
-      </swiper>
+        {{ events.status }}
+      </span>
     </div>
-  </section> -->
-
-        <!-- Trigger Button -->
-
-        <!-- Modal Overlay -->
-        <!-- <div id="manageTicketsModal" class="modal-overlay">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 class="text-dark">Manage Tickets</h2>
-      <span class="close-btn" id="closeModalBtn">&times;</span>
-    </div>
-
-    <form id="manageTicketsForm">
-      <div class="ticket-group-container" id="ticketGroupContainer">
-       <div class="ticket-group">
-  <input type="text" class="text-dark" placeholder="Ticket Type" name="ticketType[]" required>
-  <input type="number" class="text-dark" placeholder="Ticket Price" name="ticketPrice[]" required min="0" step="0.01">
-  <input type="number" class="text-dark" placeholder="Quantity" name="ticketCount[]" required min="1" step="1">
-  <button type="button" class="remove-btn">Remove</button>
-</div>
-</div>
-
-      <button type="button" id="addMoreBtn" class="add-more-btn">+ Add More</button>
-
-      <div class="modal-footer">
-        <button type="submit" class="submit-btn">Save Tickets</button>
-        <button type="button" class="cancel-btn" id="cancelModalBtn">Cancel</button>
-      </div>
-    </form>
   </div>
-</div> -->
+
+  <!-- Gallery -->
+  <div class="row mt-5" *ngIf="events.images">
+    <h4 class="mb-3">Gallery</h4>
+    <!-- Adjust if multiple images (array) instead of single -->
+    <div class="col-12 col-md-6 col-lg-4 mb-3">
+      <img
+        [src]="events.images"
+        alt="Event Image"
+        class="img-fluid rounded shadow-sm"
+        style="height: 250px; object-fit: cover; width: 100%;"
+      />
+    </div>
+  </div>
+</div>
+
+     
+        
+
     </div>
     <app-footer></app-footer>
 
-</ion-content>
+<!-- </ion-content> -->

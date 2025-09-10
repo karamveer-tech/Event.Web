@@ -1,6 +1,6 @@
 //const hostname = window.location.hostname;
 
-let baseUrl = 'https://localhost:44315'; // default dev URL
+let baseUrl = 'https://localhost:7129'; // default dev URL
 
 // // Production / staging overrides
 // if (hostname === '148.113.192.114') {
