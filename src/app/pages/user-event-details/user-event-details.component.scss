@@ -1,0 +1,5 @@
+.scroll-container {
+  height: 100vh;          /* Full screen height */
+  overflow-y: auto;       /* Enables vertical scroll */
+  overflow-x: hidden;     /* Prevents horizontal scroll */
+}
