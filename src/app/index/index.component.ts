@@ -1,30 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavController } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
 import { EventModel, EventService } from '../event-create-modal/event.service';
 import { EventsComponent } from '../events/events.component';
 
 @Component({
   selector: 'app-index',
-  
+
   standalone: true,
-  imports: [CommonModule, IonicModule, SharedModule,EventsComponent],
+  imports: [CommonModule, IonicModule, SharedModule, EventsComponent],
 
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
 })
-export class IndexComponent  implements OnInit {
-   loading = false;
-    events: EventModel[] = [];
+export class IndexComponent implements OnInit {
+  loading = false;
+  events: EventModel[] = [];
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.loadEvents();
   }
 
-  
+
   ngAfterViewInit() {
     // External CDN Styles
     // [
@@ -86,20 +86,22 @@ export class IndexComponent  implements OnInit {
   //   script.defer = true;
   //   this.renderer.appendChild(document.body, script);
   // }
-    loadEvents(): void {
-      debugger
-      this.loading = true;
-      this.eventService.getUserEvents().subscribe({
-        next: (data: EventModel[]) => {
-          debugger
-          this.events = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error fetching events:', err);
-          this.loading = false;
-        }
-      });
-    }
-    
+  loadEvents(): void {
+    debugger
+    this.loading = true;
+    this.eventService.getUserEvents().subscribe({
+      next: (data: EventModel[]) => {
+        debugger
+        this.events = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching events:', err);
+        this.loading = false;
+      }
+    });
+  }
+  goToDetails() {
+        this.navCtrl.navigateForward(['/user-event-details']);
+  }
 }

@@ -1,0 +1,198 @@
+
+
+<!-- ==========Banner-Section========== -->
+ <div class="scroll-container">
+<section
+  class="details-banner event-details-banner hero-area seat-plan-banner"
+  [ngStyle]="{ 'background-image': 'url(assets/img/banner/banner-2.jpg)' }"
+>
+  <div class="container">
+    <div class="details-banner-wrapper">
+      <div class="details-banner-content style-two">
+        <h3 class="title">
+          <span class="d-block">Learning</span>
+          <span class="d-block">Conference -2023</span>
+        </h3>
+        <div class="tags">
+          <span>290 Private Lane Street, New York, USA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========Page-Title========== -->
+<section class="page-title bg-one">
+  <div class="container">
+    <div class="page-title-area">
+      <div class="item md-order-1">
+        <a routerLink="/change-plan" class="custom-button back-button">
+          <i class="fal fa-reply"></i>change plan
+        </a>
+      </div>
+      <div class="item date-item">
+        <span class="date">FRI, FEB 15 2023</span>
+      </div>
+      <div class="item">
+        <small>TIME LEFT</small>
+        <span class="h4 font-weight-bold">09:00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========Event-Section========== -->
+<div class="movie-facility padding-bottom padding-top">
+  <div class="container">
+    <div class="row">
+      <!-- Left Side -->
+      <div class="col-lg-8">
+        <!-- Login Widget -->
+        <div
+          class="checkout-widget d-flex flex-wrap align-items-center justify-cotent-between"
+        >
+          <div class="title-area">
+            <h5 class="title">Already Have An Account?</h5>
+            <p>It is a long established fact that a reader will be distracted!</p>
+          </div>
+          <a routerLink="/login" class="sign-in-area">
+            <i class="fal fa-user"></i><span>Login</span>
+          </a>
+        </div>
+
+        <!-- Billing Info -->
+        <div class="checkout-widget checkout-contact">
+          <h5 class="title">Billing Info</h5>
+          <form (ngSubmit)="onBillingSubmit()" #billingForm="ngForm">
+            <div class="form-group">
+              <input type="text" placeholder="Full Name" [(ngModel)]="billing.fullName" name="fullName" />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Enter email" [(ngModel)]="billing.email" name="email" />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Enter Phone" [(ngModel)]="billing.phone" name="phone" />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Enter address" [(ngModel)]="billing.address" name="address" />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="custom-button">Continue</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Promo Code -->
+        <div class="checkout-widget checkout-contact">
+          <h5 class="title">Promo Code</h5>
+          <form (ngSubmit)="applyPromo()" #promoForm="ngForm">
+            <div class="form-group">
+              <input type="text" placeholder="Enter promo code" [(ngModel)]="promoCode" name="promoCode" />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="custom-button">Apply</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-widget checkout-card mb-0">
+          <h5 class="title">Payment Option</h5>
+          <ul class="payment-option">
+            <li [class.active]="selectedPayment === 'card'" (click)="selectPayment('card')">
+              <i class="fas fa-credit-card-front"></i> <span>Card</span>
+            </li>
+            <li (click)="selectPayment('paypal')">
+              <i class="fab fa-cc-paypal"></i> <span>Paypal</span>
+            </li>
+            <li (click)="selectPayment('stripe')">
+              <i class="fab fa-cc-stripe"></i> <span>Stripe</span>
+            </li>
+          </ul>
+
+          <h6 class="subtitle">Enter Your Card Details</h6>
+          <form (ngSubmit)="confirmPayment()" #paymentForm="ngForm">
+            <div class="form-group w-100">
+              <label>Name on the Card</label>
+              <input type="text" [(ngModel)]="card.name" name="cardName" />
+            </div>
+            <div class="form-group w-100">
+              <label>Card Number</label>
+              <input type="text" [(ngModel)]="card.number" name="cardNumber" />
+            </div>
+            <div class="form-group">
+              <label>Expiration</label>
+              <input type="text" [(ngModel)]="card.expiry" name="cardExpiry" placeholder="MM/YY" />
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" [(ngModel)]="card.cvv" name="cardCvv" />
+            </div>
+            <div class="form-group check-group">
+              <input id="saveCard" type="checkbox" [(ngModel)]="card.save" name="saveCard" />
+              <label for="saveCard">Save Card Info For Future Payment</label>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="custom-button">Confirm Payment</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Side Booking Summary -->
+      <div class="col-lg-4">
+        <div class="booking-summery bg-one side-shape">
+          <h4 class="title">Booking Summary</h4>
+
+          <!-- Ticket Type Dropdown -->
+          <div class="form-group my-3">
+            <label>Select Ticket Type</label>
+            <select class="form-control" [(ngModel)]="selectedTicket" name="ticketType">
+              <option value="">-- Select Ticket --</option>
+              <option *ngFor="let ticket of ticketTypes" [value]="ticket.id">{{ ticket.name }}</option>
+            </select>
+          </div>
+
+          <!-- Ticket Quantity -->
+          <div class="form-group my-3">
+            <label>Ticket Quantity</label>
+            <input type="number" min="1" [(ngModel)]="ticketQuantity" name="ticketQuantity" class="form-control" />
+          </div>
+
+          <!-- Event Info -->
+          <ul>
+            <li><h6 class="subtitle">{{ eventName }}</h6></li>
+            <li>
+              <h6 class="subtitle"><span>Available Tickets</span><span>{{ availableTickets }}</span></h6>
+              <div class="info"><span>{{ eventDate }}</span><span>Tickets</span></div>
+            </li>
+            <li>
+              <h6 class="subtitle mb-0"><span>Tickets Price</span><span>{{ ticketPrice | currency }}</span></h6>
+            </li>
+          </ul>
+
+          <!-- Additional Tickets -->
+          <div class="form-group mt-4">
+            <label>Select Additional Ticket Types</label>
+            <div>
+              <div *ngFor="let extra of additionalTickets; let i = index">
+                <select [(ngModel)]="extra.type" name="extraType{{ i }}">
+                  <option *ngFor="let ticket of ticketTypes" [value]="ticket.id">{{ ticket.name }}</option>
+                </select>
+                <input type="number" [(ngModel)]="extra.quantity" name="extraQty{{ i }}" min="1" />
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline-primary mt-2" (click)="addMoreTicketType()">+ Add More Ticket</button>
+          </div>
+        </div>
+
+        <!-- Pay Amount -->
+        <div class="proceed-area text-center">
+          <h6 class="subtitle"><span>Pay Amount</span><span>{{ payAmount | currency }}</span></h6>
+          <button class="custom-button" (click)="confirmPayment()">Confirm Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>

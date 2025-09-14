@@ -4,6 +4,10 @@ import { StaticPageComponent } from './pages/static-page/static-page.component';
 
 const routes: Routes = [
   // Dynamic routes with components loaded lazily
+   {
+    path: 'event-checkoutme',
+    loadComponent: () => import('./pages/event-checkout/event-checkout.component').then(m => m.EventCheckoutComponent)
+  },
   {
     path: 'event-details',
     loadComponent: () => import('./event-details/event-details.component').then(m => m.EventDetailsComponent)

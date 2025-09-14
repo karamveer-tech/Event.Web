@@ -25,7 +25,7 @@ export class UserEventDetailsComponent  implements OnInit {
     this.eventDataService.setSelectedEvent(null);
   }
   goToDetails() {
-  this.navCtrl.navigateForward(['/event-details2']);
+  this.navCtrl.navigateForward(['/event-checkoutme']);
 }
 
 }

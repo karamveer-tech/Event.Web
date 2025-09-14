@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, Renderer2, OnDestroy } from '@angular/core';
+import { IonicModule, NavController } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
 import { EventModel, EventService } from '../event-create-modal/event.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { EventDetailsComponent } from '../event-details/event-details.component';
 import { UserEventDetailsComponent } from '../pages/user-event-details/user-event-details.component';
   
@@ -15,20 +15,27 @@ import { UserEventDetailsComponent } from '../pages/user-event-details/user-even
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss'],
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent implements OnDestroy {
   loading = false;
   events?: EventModel[] = [];
-  isViewDetails : boolean = false;
 
-  constructor(private eventService: EventService,public eventDataService: EventService, private renderer: Renderer2, private router: Router) {
+  private routerSubscription: any;
+  constructor(private eventService: EventService, public eventDataService: EventService, private navCtrl: NavController, private router: Router) {
     this.loadEvents();
+    this.eventService.setSelectedEvent(null); // Clear selected event on load
+    // Listen for navigation to /event and reset selectedEvent
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.urlAfterRedirects.startsWith('/event')) {
+        this.eventService.setSelectedEvent(null);
+        this.loadEvents();
+      }
+    });
   }
-
-  ngOnInit() {
-    console.log(this.isViewDetails);
-    //this.loadEvents();
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
-
 
   loadEvents(): void {
     this.loading = true;
@@ -53,7 +60,7 @@ export class EventsComponent implements OnInit {
       (data: EventModel) => {
         // Send data via service
         this.eventService.setSelectedEvent(data);
-        this.isViewDetails = true;
+        this.navCtrl.navigateForward(['/user-event-details']);
         this.loading = false;
       },
       (err) => {

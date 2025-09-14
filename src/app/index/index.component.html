@@ -99,7 +99,7 @@
             <p class="mb-1"><strong>End:</strong> {{ event.end_datetime | date: 'medium' }}</p>
             <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>
             <div class="mt-auto">
-              <button class="btn btn-sm btn-success w-100">
+              <button class="btn btn-sm btn-success w-100" (click)="goToDetails()">
                 View Details
               </button>
               
