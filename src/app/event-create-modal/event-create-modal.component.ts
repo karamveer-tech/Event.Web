@@ -57,6 +57,7 @@ export class EventCreateModalComponent implements AfterViewInit {
   bannerPreview: string | ArrayBuffer | null = null;
   imagesPreview: string | ArrayBuffer | null = null;
   message: string = '';
+  isUpdate:boolean=false;
   @ViewChild('addressInput') addressInput!: ElementRef;
   zoom = 6;
   // center: google.maps.LatLngLiteral = { lat: 20.5937, lng: 78.9629 }; // default center (India)
@@ -65,7 +66,7 @@ export class EventCreateModalComponent implements AfterViewInit {
 
 
   ngOnInit() {
-    // Check if event data is passed via router state
+      this.isUpdate=!!this.event.id;
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras.state?.['event']) {
       this.event = nav.extras.state['event'];
