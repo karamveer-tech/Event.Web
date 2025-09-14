@@ -1,6 +1,6 @@
 <div class="modelCon">
   <div class="modal-header">
-    <h5 class="modal-title">Create Event</h5>
+    <h5 class="modal-title">{{ isUpdate ? 'Update Event' : 'Create Event' }} </h5>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
 
@@ -157,7 +157,8 @@
 
         <div class="mb-3">
           <label class="form-label">Upload Images</label>
-           <input type="file" class="form-control" (change)="onImageUpload($event)" />
+           <!-- <input type="file" class="form-control" (change)="onImageUpload($event)" /> -->
+           <input type="file" class="form-control" (change)="onImageUpload($event)" multiple />
           <!-- <label class="form-label">Upload CSV</label>
           <input type="file" class="form-control" (change)="onCSVUpload($event)" /> -->
         </div>
@@ -207,10 +208,20 @@
             <img [src]="bannerPreview" alt="Banner" class="img-thumbnail" style="max-width: 200px;" />
           </div>
 
-           <p><strong>Images:</strong> {{ event.images?.name || 'Not uploaded' }}</p>
+           <!-- <p><strong>Images:</strong> {{ event.images?.name || 'Not uploaded' }}</p>
           <div *ngIf="imagesPreview" class="images-preview mb-2">
             <img [src]="imagesPreview" alt="Images" class="img-thumbnail" style="max-width: 200px;" />
-          </div>
+          </div> -->
+       <p><strong>Images:</strong></p>
+        <div *ngIf="event.images && event.images.length > 0; else noImages">
+  <div *ngFor="let img of event.images; let i = index" style="margin-bottom: 10px;">
+    <img [src]="imagesPreview[i]" width="100" style="margin-right: 10px;" />
+    <span>{{ img.name }}</span>
+  </div>
+</div>
+<ng-template #noImages>
+  <p>Not uploaded</p>
+</ng-template>
 
 
           <!-- <p><strong>CSV File:</strong> {{ event.csvFile?.name || 'Not uploaded' }}</p>
@@ -240,7 +251,7 @@
       <button type="button" class="btn btn-primary" (click)="nextTab()" [disabled]="isNextDisabled()"
         *ngIf="currentTab < 4">Next</button>
 
-      <button type="submit" class="btn btn-success" *ngIf="currentTab === 4"> {{ isUpdate ? 'Update Event' : 'Create Event' }}</button>
+      <button type="submit"  [disabled]="isSubmitting" class="btn btn-success" *ngIf="currentTab === 4"> {{ isUpdate ? 'Update Event' : 'Create Event' }}</button>
     </div>
   </form>
 

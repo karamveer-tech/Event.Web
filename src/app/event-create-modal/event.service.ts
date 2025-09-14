@@ -22,7 +22,8 @@ export interface EventModel {
     freeSeats?: number | null;
     paidTickets?: PaidTicket[];
     banner?: File | null;
-    images?: File | null;
+    images?: File[];
+    imagesPath?: string;
     status: 'Draft' | 'Published';
     // csvFile?: File | null;
 }
@@ -53,6 +54,11 @@ export class EventService {
 
          if (event.banner instanceof File) {
     formData.append("banner", event.banner, event.banner.name);
+  }
+  if (event.images && event.images.length > 0) {
+    event.images.forEach(file => {
+      formData.append('images', file);  // The key 'images' must match the backend parameter
+    });
   }
         // if (event.csvFile) formData.append('csvFile', event.csvFile, event.csvFile.name);
 

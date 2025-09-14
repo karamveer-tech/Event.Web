@@ -13,12 +13,21 @@ import { NavController } from '@ionic/angular';
 })
 export class UserEventDetailsComponent  implements OnInit {
    event?: EventModel;
-
+    leftImages: string[] = [];
+    rightImage: string | null = null;
   constructor(private eventDataService: EventService,private navCtrl: NavController) { }
 
   ngOnInit(): void {
     this.eventDataService.selectedEvent$.subscribe(event => {
+      debugger
       this.event = event || undefined;
+      if (this.event?.imagesPath) {
+    const baseUrl = 'https://localhost:7129/';
+    const images = this.event?.imagesPath.split(',');
+
+    this.leftImages = images.slice(0, images.length - 1).map(img => baseUrl + img.trim());
+    this.rightImage = images.length ? baseUrl + images[images.length - 1].trim() : null;
+  }
     });
   }
   closeDetails(): void {

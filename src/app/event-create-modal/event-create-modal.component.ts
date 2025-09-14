@@ -1,9 +1,9 @@
 import {
   Component,
-  AfterViewInit,
   ViewChild,
   ElementRef,
-  NgZone
+  NgZone,
+  OnInit
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +26,7 @@ interface ApiResponse {
 })
 
 
-export class EventCreateModalComponent implements AfterViewInit {
+export class EventCreateModalComponent implements OnInit {
   static EventCreateModalComponent(EventCreateModalComponent: any, arg1: { size: string; backdrop: "static"; keyboard: false; }) {
     throw new Error('Method not implemented.');
   }
@@ -49,17 +49,19 @@ export class EventCreateModalComponent implements AfterViewInit {
     freeSeats: null,
     paidTickets: [],
     banner: null,
-    images: null,
+    images: [],
     status: 'Draft'
   };
 
   csvPreview: any = null;
   bannerPreview: string | ArrayBuffer | null = null;
-  imagesPreview: string | ArrayBuffer | null = null;
+  imagesPreview: string[] = [];
   message: string = '';
   isUpdate:boolean=false;
   @ViewChild('addressInput') addressInput!: ElementRef;
   zoom = 6;
+
+  isSubmitting = false;
   // center: google.maps.LatLngLiteral = { lat: 20.5937, lng: 78.9629 }; // default center (India)
   // markerPosition: google.maps.LatLngLiteral | null = null;
   constructor(public activeModal: NgbActiveModal, private eventService: EventService, private ngZone: NgZone, private router: Router) { }
@@ -73,35 +75,7 @@ export class EventCreateModalComponent implements AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    // initialize autocomplete
-    // const autocomplete = new google.maps.places.Autocomplete(
-    //   this.addressInput.nativeElement,
-    //   {
-    //     types: ['geocode'] // or 'address'
-    //   }
-    // );
-    // autocomplete.addListener('place_changed', () => {
-    //   this.ngZone.run(() => {
-    //     const place = autocomplete.getPlace();
-
-    //     if (!place.geometry || !place.geometry.location) {
-    //       return;
-    //     }
-
-    //     // set map center and marker
-    //     const lat = p  lace.geometry.location.lat();
-    //     const lng = place.geometry.location.lng();
-
-    //     this.center = { lat, lng };
-    //     this.markerPosition = { lat, lng };
-
-    //     // save address & coords
-    //     this.event.address = place.formatted_address;
-    //     this.event.location = `${lat}, ${lng}`;
-    //   });
-    // });
-  }
+  
   // CSV upload
   // onCSVUpload(event: any) {
   //   const file = event.target.files[0];
@@ -127,21 +101,82 @@ export class EventCreateModalComponent implements AfterViewInit {
       alert('Please upload a valid image file');
     }
   }
-  onImageUpload(event: any) {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      this.event.images = file;
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.imagesPreview = e.target.result;
-      reader.readAsDataURL(file);
+  // onImageUpload(event: any) {
+  //   debugger
+  //   const file = event.target.files[0];
+  //   if (file && file.type.startsWith('image/')) {
+  //     this.event.images = file;
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => this.imagesPreview = e.target.result;
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     alert('Please upload a valid image file');
+  //   }
+  // }
+
+//   onImageUpload(event: any) {
+//   const files: FileList = event.target.files;
+//   if (files && files.length > 0) {
+//     this.event.images = []; // Reset the array
+//     this.imagesPreview = []; // Reset previews
+
+//     for (let i = 0; i < files.length; i++) {
+//       const file = files[i];
+//       if (file.type.startsWith('image/')) {
+//         this.event.images.push(file); // Store the file
+
+//         const reader = new FileReader();
+//         reader.onload = (e: any) => {
+//           this.imagesPreview.push(e.target.result); // Store preview
+//         };
+//         reader.readAsDataURL(file);
+//       } else {
+//         alert(`File ${file.name} is not a valid image.`);
+//       }
+//     }
+//   }
+// }
+onImageUpload(event: any) {
+  debugger
+  const files: FileList = event.target.files;
+  if (files && files.length > 0) {
+    // Ensure images array is initialized
+    if (!this.event.images) {
+      this.event.images = [];
     } else {
-      alert('Please upload a valid image file');
+      this.event.images.length = 0; // Clear existing images
+    }
+
+    // Ensure imagesPreview array is initialized
+    if (!this.imagesPreview) {
+      this.imagesPreview = [];
+    } else {
+      this.imagesPreview.length = 0; // Clear existing previews
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.type.startsWith('image/')) {
+        this.event.images.push(file); // Store the file
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imagesPreview.push(e.target.result); // Store preview
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert(`File ${file.name} is not a valid image.`);
+      }
     }
   }
+}
+
+
   // Submit event using service
   submitEvent() {
     debugger
     if (this.event.id == 0 || this.event.id == null || this.event.id == undefined) {
+this.isSubmitting = true;
       this.eventService.createEvent(this.event).subscribe({
         next: (res: ApiResponse) => {
           if (res.success) {
@@ -155,10 +190,12 @@ export class EventCreateModalComponent implements AfterViewInit {
         },
         error: (err: { error?: { message?: string }; message: string }) => {
           this.message = '❌ Error creating event: ' + (err?.error?.message || err.message);
+          this.isSubmitting = false;
         }
       });
     }
     else {
+      this.isSubmitting = true;
       this.eventService.editEvent(this.event).subscribe({
         next: (res: ApiResponse) => {
           if (res.success) {
@@ -172,6 +209,7 @@ export class EventCreateModalComponent implements AfterViewInit {
         },
         error: (err: { error?: { message?: string }; message: string }) => {
           this.message = '❌ Error creating event: ' + (err?.error?.message || err.message);
+          this.isSubmitting = false;
         }
       });
     }

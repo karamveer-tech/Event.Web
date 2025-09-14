@@ -138,6 +138,56 @@
 </section>
 <!-- ==========Banner-Section========== -->
 
+
+
+
+
+
+<div class="speaker-gallery">
+  <div class="row m-0">
+    <div class="col-md-6 p-0">
+      <div class="row m-0">
+        <div class="col-sm-6 p-0" *ngFor="let img of leftImages; let i = index">
+          <div class="gallery-item two">
+            <div class="gallery-thumb">
+              <a [href]="img" class="img-pop">
+                <i class="fal fa-compress"></i>
+              </a>
+              <img [src]="img" alt="gallery">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 p-0">
+      <div class="gallery-item" *ngIf="rightImage">
+        <div class="gallery-thumb">
+          <a [href]="rightImage" class="img-pop">
+            <i class="fal fa-compress"></i>
+          </a>
+          <img [src]="rightImage" alt="gallery">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- ==========Event-Book-Search========== -->
 <section class="event-book-search padding-top pt-lg-0">
     <div class="container">
