@@ -240,7 +240,7 @@
       <button type="button" class="btn btn-primary" (click)="nextTab()" [disabled]="isNextDisabled()"
         *ngIf="currentTab < 4">Next</button>
 
-      <button type="submit" class="btn btn-success" *ngIf="currentTab === 4">Create Event</button>
+      <button type="submit" class="btn btn-success" *ngIf="currentTab === 4"> {{ isUpdate ? 'Update Event' : 'Create Event' }}</button>
     </div>
   </form>
 
