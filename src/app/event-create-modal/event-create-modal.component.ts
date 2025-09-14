@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { EventService, EventModel, PaidTicket } from '../event-create-modal/event.service';
-import { GoogleMapsModule } from '@angular/google-maps';
+// import { GoogleMapsModule } from '@angular/google-maps';
 import { Router, RouterModule } from '@angular/router';
 
 interface ApiResponse {
@@ -22,7 +22,7 @@ interface ApiResponse {
   standalone: true,
   templateUrl: './event-create-modal.component.html',
   styleUrls: ['./event-create-modal.component.scss'],
-  imports: [FormsModule, CommonModule, GoogleMapsModule, RouterModule]
+  imports: [FormsModule, CommonModule, RouterModule]
 })
 
 
@@ -59,8 +59,8 @@ export class EventCreateModalComponent implements AfterViewInit {
   message: string = '';
   @ViewChild('addressInput') addressInput!: ElementRef;
   zoom = 6;
-  center: google.maps.LatLngLiteral = { lat: 20.5937, lng: 78.9629 }; // default center (India)
-  markerPosition: google.maps.LatLngLiteral | null = null;
+  // center: google.maps.LatLngLiteral = { lat: 20.5937, lng: 78.9629 }; // default center (India)
+  // markerPosition: google.maps.LatLngLiteral | null = null;
   constructor(public activeModal: NgbActiveModal, private eventService: EventService, private ngZone: NgZone, private router: Router) { }
 
 

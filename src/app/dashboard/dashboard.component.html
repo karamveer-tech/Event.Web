@@ -111,17 +111,18 @@
                   <h5 class="card-title">{{ event.title }}</h5>
 
                   <!-- Description -->
+                   <strong>Description</strong> 
                   <p class="card-text">{{ event.description }}</p>
 
                   <!-- Location -->
-                  <p class="mb-1"><strong>Location:</strong> {{ event.location }}</p>
+                  <p class="mb-1"><strong>Location:</strong> {{ event.location | uppercase }}</p>
 
                   <!-- Status -->
-                  <p class="mb-1"><strong>Status:</strong> {{ event.status }}</p>
+                  <p class="mb-1"><strong>Status:</strong> {{ event.status  | uppercase}}</p>
 
                   <!-- Start & End Dates -->
-                  <p class="mb-1"><strong>Start:</strong> {{ event.start_datetime}}</p>
-                  <p class="mb-1"><strong>End:</strong> {{ event.end_datetime}}</p>
+                  <p class="mb-1"><strong>Start:</strong> {{ event.start_datetime | date: 'medium'}}</p>
+                  <p class="mb-1"><strong>End:</strong> {{ event.end_datetime | date: 'medium'}}</p>
 
                   <!-- Ticket Type -->
                   <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>

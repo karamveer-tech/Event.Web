@@ -12,11 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { UserEventDetailsComponent } from './pages/user-event-details/user-event-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent        
-  ],
+    AppComponent    
+    ],
   imports: [
     BrowserModule,
     FormsModule, 
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     EventCreateModalComponent,
     EventDetailsComponent, 
+    UserEventDetailsComponent,
     NavbarComponent,
     FooterComponent
   ],

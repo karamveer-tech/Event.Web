@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, Renderer2 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
     this.menuOpen = !this.menuOpen;
   }
   
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2,public router:Router) {}
 
   ngOnInit() {}
 
@@ -72,4 +72,8 @@ export class NavbarComponent implements OnInit {
     script.defer = true;
     this.renderer.appendChild(document.body, script);
   }
+     RouteME () {
+          this.router.navigate(['/event']);
+
+    }
 }

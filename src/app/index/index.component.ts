@@ -3,12 +3,13 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
 import { EventModel, EventService } from '../event-create-modal/event.service';
+import { EventsComponent } from '../events/events.component';
 
 @Component({
   selector: 'app-index',
   
   standalone: true,
-  imports: [CommonModule, IonicModule, SharedModule],
+  imports: [CommonModule, IonicModule, SharedModule,EventsComponent],
 
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
@@ -88,7 +89,7 @@ export class IndexComponent  implements OnInit {
     loadEvents(): void {
       debugger
       this.loading = true;
-      this.eventService.getEvents().subscribe({
+      this.eventService.getUserEvents().subscribe({
         next: (data: EventModel[]) => {
           debugger
           this.events = data;

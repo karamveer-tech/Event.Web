@@ -118,39 +118,24 @@
         <!-- ==========Event-About========== -->
 
         <section class="event-about padding-top padding-bottom">
-            <div class="container">
-                <div class="row justify-content-between flex-wrap-reverse">
-                    <div class="col-lg-7 col-xl-6">
-                        <div class="event-about-content">
-                            <div class="section-header-3 left-style m-0">
-                                <span class="cate">join our event</span>
-                                <h2 class="title">Learning Conference - <span>2023</span></h2>
-                                <p>
-                                    There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have suffered alteration in some form, by injected humour, or randomised words which
-                                    don't look even slightly believable. If you are going to use a passage of Lorem
-                                    Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of
-                                    text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                                    chunks as necessary, making this the first true generator on the Internet. It uses a
-                                    dictionary of over 200 Latin words.
-                                </p>
-                                <p>
-                                    Sure there isn't anything embarrassing hidden in the middle of text. All the Lorem
-                                    Ipsum generators on the Internet tend to repeat predefined chunks as necessary,
-                                    making this the first true generator on the Internet. It uses a dictionary of over
-                                    200 Latin words.
-                                </p>
-                                <a href="/event-checkout" class="custom-button">book tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="event-about-thumb-cont">
-                        <div class="event-about-thumb">
-                            <img src="/assets/img/event/event-about.jpg" alt="event">
-                        </div>
-                    </div>
-                </div>
-            </div>
+           <div class="container mt-4">
+  <div class="card shadow-sm">
+    <img [src]="data?.banner_path" class="card-img-top img-fluid"
+         style="height:300px; object-fit:cover; width:100%;" alt="Event Banner">
+    <div class="card-body">
+      <!-- <h3 class="card-title">{{ event.title }}</h3> -->
+      <p class="card-text">{{ data?.description }}</p>
+      <!-- <p><strong>Location:</strong> {{ event.location }}</p>
+      <p><strong>Status:</strong> {{ event.status }}</p>
+      <p><strong>Start:</strong> {{ event.start_datetime }}</p>
+      <p><strong>End:</strong> {{ event.end_datetime }}</p>
+      <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p> -->
+
+      <button class="btn btn-primary mt-3" (click)="closeDetails()">Back to Events</button>
+    </div>
+  </div>
+</div>
+
         </section>
 
         <!-- ==========Event-About========== -->
@@ -363,12 +348,12 @@
      
      
      
-     <div class="container my-4" *ngIf="events">
+     <div class="container my-4" *ngIf="event">
   <!-- Banner -->
   <div class="row">
     <div class="col-12">
       <img
-        [src]="events.banner_path"
+        [src]="data?.banner_path"
         alt="Event Banner"
         class="img-fluid rounded shadow-sm w-100"
         style="max-height: 400px; object-fit: cover;"
@@ -379,15 +364,15 @@
   <!-- Event Info -->
   <div class="row mt-4">
     <div class="col-12 col-md-8">
-      <h2 class="fw-bold">{{ events.title }}</h2>
-      <p class="text-muted">{{ events.description }}</p>
+      <h2 class="fw-bold">{{ data?.title }}</h2>
+      <p class="text-muted">{{ data?.description }}</p>
       <p>
         <i class="fa-solid fa-location-dot me-2"></i>
-        {{ events.location }} - {{ events.address }}
+        {{ data?.location }} - {{ data?.address }}
       </p>
       <p>
         <i class="fa-regular fa-calendar me-2"></i>
-        {{ events.start_datetime | date:'medium' }} → {{ events.end_datetime | date:'medium' }}
+        {{ data?.start_datetime | date:'medium' }} → {{ data?.end_datetime | date:'medium' }}
       </p>
     </div>
 
@@ -398,13 +383,13 @@
           <h5 class="card-title">Tickets</h5>
 
           <!-- Free Ticket -->
-          <div *ngIf="events.ticketType === 'Free'">
+          <div *ngIf="event.ticketType === 'Free'">
             <p><strong>Type:</strong> Free</p>
-            <p><strong>Seats:</strong> {{ events.freeSeats ?? 'Unlimited' }}</p>
+            <p><strong>Seats:</strong> {{ data?.freeSeats ?? 'Unlimited' }}</p>
           </div>
 
           <!-- Paid Tickets -->
-          <div *ngIf="events.ticketType === 'Paid'">
+          <div *ngIf="event.ticketType === 'Paid'">
             <p><strong>Type:</strong> Paid</p>
             <div class="table-responsive">
               <table class="table table-sm table-bordered align-middle text-center">
@@ -416,7 +401,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let ticket of events.paidTickets">
+                  <tr *ngFor="let ticket of data?.paidTickets">
                     <td>{{ ticket.name }}</td>
                     <td>{{ ticket.seats ?? 'N/A' }}</td>
                     <td>{{ ticket.price | currency }}</td>
@@ -436,22 +421,21 @@
       <span
         class="badge"
         [ngClass]="{
-          'bg-success': events.status === 'Published',
-          'bg-secondary': events.status === 'Draft'
+          'bg-success': event.status === 'Published',
+          'bg-secondary': event.status === 'Draft'
         }"
       >
-        {{ events.status }}
       </span>
     </div>
   </div>
 
   <!-- Gallery -->
-  <div class="row mt-5" *ngIf="events.images">
+  <div class="row mt-5" *ngIf="data?.images">
     <h4 class="mb-3">Gallery</h4>
     <!-- Adjust if multiple images (array) instead of single -->
     <div class="col-12 col-md-6 col-lg-4 mb-3">
       <img
-        [src]="events.images"
+        [src]="data?.images"
         alt="Event Image"
         class="img-fluid rounded shadow-sm"
         style="height: 250px; object-fit: cover; width: 100%;"

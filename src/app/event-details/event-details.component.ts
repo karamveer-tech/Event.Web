@@ -26,7 +26,10 @@ export class EventDetailsComponent implements OnInit {
   // minutes: string = '00';
   // seconds: string = '00';
   //private countdownInterval: any;
-  events!: EventModel;
+  event!: EventModel;
+  
+
+  data:any;
 
   constructor(private route: ActivatedRoute, private eventService: EventService) {}
 
@@ -34,7 +37,8 @@ export class EventDetailsComponent implements OnInit {
     debugger
      const eventId = Number(this.route.snapshot.paramMap.get('id'));
       this.eventService.getEventById(eventId).subscribe((data: EventModel) => {
-        this.events = data;
+        debugger
+        this.data = data;
       });
 
     // const eventId = localStorage.getItem('event_Id');
@@ -123,7 +127,9 @@ export class EventDetailsComponent implements OnInit {
     //   'assets/js/eventDetails.js',
     //  ].forEach(src => this.loadScript(src));
   //}
-
+  closeDetails(): void {
+    this.eventService.setSelectedEvent(null);
+  }
   loadStyle(href: string) {
     // const link = this.renderer.createElement('link');
     // link.rel = 'stylesheet';

@@ -52,24 +52,35 @@
         <label class="form-label">Event Location</label>
         
         <!-- Address Input -->
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter event address"
-          #addressInput />
+           <input type="text" class="form-control" [(ngModel)]="event.location" 
+             placeholder="Enter event address"
+             name="address" required />
 
-        <google-map
+          
+        <!-- <google-map
           height="300px"
           width="100%"
           [center]="center"
           [zoom]="zoom">
           <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
-        </google-map>
+        </google-map> -->
 
         <small class="form-text text-muted">Type address or click on the map to select location.</small>
         <p *ngIf="event.location"><strong>Selected Coordinates:</strong> {{ event.location }}</p>
       </div>
+   <div class="mb-3">
+           <!-- Address Input -->
+           <!-- <input type="text" class="form-control" [(ngModel)]="event.description" 
+             placeholder="Enter event description"
+             name="description" /> -->
+             <textarea class="form-control" 
+                [(ngModel)]="event.description" 
+                placeholder="Enter event description" 
+                name="description" 
+                rows="5">
+            </textarea>
 
+      </div>
       </div>
 
       <!-- TAB 2 -->
@@ -211,10 +222,9 @@
         </div>
          <div class="form-group ml-3 mr-3">
           <label for="status">Status</label>
-          <select id="status" name="status" required>
+          <select id="status" name="status" [(ngModel)]="event.status" required>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
-            <!-- <option value="cancelled">Cancelled</option> -->
           </select>
     </div>
       </div>

@@ -12,6 +12,7 @@ export const CONFIG = {
   ENDPOINTS: {
     CREATE_EVENT: '/api/Event/create-event',
     GET_EVENTS: '/api/Event/get-all-events',
+    GET_USER_EVENTS: '/api/Event/get-user-events',
     GET_EVENT_BY_ID: '/api/Event/get-event-by-id',
     UPDATE_EVENT: '/api/Event/update-event',
     DELETE_EVENT: '/api/Event/delete-event'
