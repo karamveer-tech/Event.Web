@@ -3,7 +3,8 @@ import {
   ViewChild,
   ElementRef,
   NgZone,
-  OnInit
+  OnInit,
+  AfterViewInit
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +27,7 @@ interface ApiResponse {
 })
 
 
-export class EventCreateModalComponent implements OnInit {
+export class EventCreateModalComponent implements OnInit, AfterViewInit {
   static EventCreateModalComponent(EventCreateModalComponent: any, arg1: { size: string; backdrop: "static"; keyboard: false; }) {
     throw new Error('Method not implemented.');
   }
@@ -50,7 +51,9 @@ export class EventCreateModalComponent implements OnInit {
     paidTickets: [],
     banner: null,
     images: [],
-    status: 'Draft'
+    status: 'Draft',
+    lat: 0,
+    lng: 0
   };
 
   csvPreview: any = null;
@@ -58,10 +61,15 @@ export class EventCreateModalComponent implements OnInit {
   imagesPreview: string[] = [];
   message: string = '';
   isUpdate:boolean=false;
-  @ViewChild('addressInput') addressInput!: ElementRef;
+  // @ViewChild('addressInput') addressInput!: ElementRef;
   zoom = 6;
 
   isSubmitting = false;
+  selectedFiles: File[] = [];      // newly selected files
+  previewUrls: string[] = [];   
+
+  autocomplete!: google.maps.places.Autocomplete;
+  @ViewChild('addressInput') addressInput!: ElementRef<HTMLInputElement>;
   // center: google.maps.LatLngLiteral = { lat: 20.5937, lng: 78.9629 }; // default center (India)
   // markerPosition: google.maps.LatLngLiteral | null = null;
   constructor(public activeModal: NgbActiveModal, private eventService: EventService, private ngZone: NgZone, private router: Router) { }
@@ -74,8 +82,69 @@ export class EventCreateModalComponent implements OnInit {
       this.event = nav.extras.state['event'];
     }
   }
+ ngAfterViewInit(): void {
+  debugger
+   this.loadGoogleMaps().then(() => {
+    // Wait until google.maps.places is ready
+    const checkInterval = setInterval(() => {
+      if ((window as any).google?.maps?.places) {
+        this.initAutocomplete();
+        clearInterval(checkInterval);
+      }
+    }, 100);
+  });
+  }
+  private loadGoogleMaps(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      debugger
+      // Already loaded?
+      if ((window as any).google && (window as any).google.maps) {
+        resolve();
+        return;
+      }
+debugger
+      const script = document.createElement('script');
+      script.src =
+        'https://maps.googleapis.com/maps/api/js?key=AIzaSyDcFSb86CXbGl1Lftb5zdqOJEA1OFhfcVg&libraries=places';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => resolve();
+      script.onerror = (err) => reject(err);
+      document.head.appendChild(script);
+    });
+  }
+ private initAutocomplete(): void {
+  debugger
+    const input = this.addressInput ? this.addressInput.nativeElement : document.getElementById('autocomplete') as HTMLInputElement;
+   if (!this.addressInput) {
+      console.error('Address input not found');
+      return;
+    }
+if (!(window as any).google || !(window as any).google.maps || !(window as any).google.maps.places) {
+    console.error('Google Maps Places library not loaded yet');
+    return;
+  }
+    this.autocomplete = new google.maps.places.Autocomplete(input, {
+      types: ['geocode'],
+    });
 
-  
+    this.autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        const place = this.autocomplete.getPlace();
+
+        if (place.formatted_address) {
+          this.event.location = place.formatted_address;
+        }
+
+        if (place.geometry && place.geometry.location) {
+          this.event.lat = place.geometry.location.lat();
+          this.event.lng = place.geometry.location.lng();
+        }
+
+      });
+    });
+  }
+
   // CSV upload
   // onCSVUpload(event: any) {
   //   const file = event.target.files[0];
@@ -91,12 +160,15 @@ export class EventCreateModalComponent implements OnInit {
 
   // Banner upload
   onBannerUpload(event: any) {
+    debugger
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
       this.event.banner = file;
       const reader = new FileReader();
-      reader.onload = (e: any) => this.bannerPreview = e.target.result;
-      reader.readAsDataURL(file);
+      reader.onload = (e: any) => {
+      this.bannerPreview = e.target.result; // Replace old preview with new
+    };
+    reader.readAsDataURL(file);
     } else {
       alert('Please upload a valid image file');
     }
@@ -170,13 +242,21 @@ onImageUpload(event: any) {
     }
   }
 }
+removeExistingImage(index: number) {
+  this.event.images?.splice(index, 1);
+}
 
+// Remove new (just selected) image
+removeNewImage(index: number) {
+  this.selectedFiles.splice(index, 1);
+  this.previewUrls.splice(index, 1);
+}
 
   // Submit event using service
   submitEvent() {
     debugger
     if (this.event.id == 0 || this.event.id == null || this.event.id == undefined) {
-this.isSubmitting = true;
+      this.isSubmitting = true;
       this.eventService.createEvent(this.event).subscribe({
         next: (res: ApiResponse) => {
           if (res.success) {

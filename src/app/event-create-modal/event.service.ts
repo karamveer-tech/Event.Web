@@ -25,6 +25,8 @@ export interface EventModel {
     images?: File[];
     imagesPath?: string;
     status: 'Draft' | 'Published';
+    lat?: number;  // use type only
+    lng?: number;  // use type only
     // csvFile?: File | null;
 }
 
@@ -53,13 +55,13 @@ export class EventService {
         }
 
          if (event.banner instanceof File) {
-    formData.append("banner", event.banner, event.banner.name);
-  }
-  if (event.images && event.images.length > 0) {
-    event.images.forEach(file => {
-      formData.append('images', file);  // The key 'images' must match the backend parameter
-    });
-  }
+                formData.append("banner", event.banner, event.banner.name);
+            }
+            if (event.images && event.images.length > 0) {
+                event.images.forEach(file => {
+                formData.append('images', file);  // The key 'images' must match the backend parameter
+                });
+            }
         // if (event.csvFile) formData.append('csvFile', event.csvFile, event.csvFile.name);
 
         return this.http.post(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.CREATE_EVENT}`, formData);
@@ -86,6 +88,11 @@ export class EventService {
         if (event.banner instanceof File) {
             formData.append('banner', event.banner, event.banner.name);
         }
+            if (event.images && event.images.length > 0) {
+                event.images.forEach(file => {
+                formData.append('images', file, file.name);  // The key 'images' must match the backend parameter
+                });
+            }
 debugger
         return this.http.post(
             `${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.UPDATE_EVENT}`,

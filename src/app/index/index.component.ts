@@ -101,7 +101,20 @@ export class IndexComponent implements OnInit {
       }
     });
   }
-  goToDetails() {
+  goToDetails(eventId :number):void {
+     this.loading = true;
+    this.eventService.getEventById(eventId).subscribe(
+      (data: EventModel) => {
+        // Send data via service
+        this.eventService.setSelectedEvent(data);
         this.navCtrl.navigateForward(['/user-event-details']);
+        this.loading = false;
+      },
+      (err) => {
+        console.error('Error fetching event:', err);
+        this.loading = false;
+      }
+    );
+    // this.navCtrl.navigateForward(['/user-event-details']);
   }
 }

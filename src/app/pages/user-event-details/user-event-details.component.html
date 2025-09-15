@@ -143,41 +143,6 @@
 
 
 
-<div class="speaker-gallery">
-  <div class="row m-0">
-    <div class="col-md-6 p-0">
-      <div class="row m-0">
-        <div class="col-sm-6 p-0" *ngFor="let img of leftImages; let i = index">
-          <div class="gallery-item two">
-            <div class="gallery-thumb">
-              <a [href]="img" class="img-pop">
-                <i class="fal fa-compress"></i>
-              </a>
-              <img [src]="img" alt="gallery">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 p-0">
-      <div class="gallery-item" *ngIf="rightImage">
-        <div class="gallery-thumb">
-          <a [href]="rightImage" class="img-pop">
-            <i class="fal fa-compress"></i>
-          </a>
-          <img [src]="rightImage" alt="gallery">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
 
 
 
@@ -246,6 +211,45 @@
   </div>
 </div>
 </section>
+
+<section class="event-details padding-bottom mt-4">
+    
+
+
+<div class="speaker-gallery">
+  <div class="row m-0">
+    <div class="col-md-6 p-0">
+      <div class="row m-0">
+        <div class="col-sm-6 p-0" *ngFor="let img of leftImages; let i = index">
+          <div class="gallery-item two">
+            <div class="gallery-thumb">
+              <a [href]="img" class="img-pop">
+                <i class="fal fa-compress"></i>
+              </a>
+              <img [src]="img" alt="gallery">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 p-0">
+      <div class="gallery-item" *ngIf="rightImage">
+        <div class="gallery-thumb">
+          <a [href]="rightImage" class="img-pop">
+            <i class="fal fa-compress"></i>
+          </a>
+          <img [src]="rightImage" alt="gallery">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</section>
 <!-- ==========Event-About========== -->
 <section class="event-about padding-top padding-bottom">
     <div class="container">
@@ -267,7 +271,7 @@
             </div>
             <div class="col-lg-5 col-md-7">
                 <div class="event-about-thumb">
-                    <img src="img/event/event-about.jpg" alt="event">
+                    <img src="./assets/img/event/event-about.jpg" alt="event">
                 </div>
             </div>
         </div>
@@ -276,7 +280,7 @@
 <!-- ==========Event-About========== -->
 
 <!-- ==========Gallery-Section========== -->
-<div class="speaker-gallery">
+<!-- <div class="speaker-gallery">
     <div class="row m-0">
         <div class="col-md-6 p-0">
             <div class="row m-0">
@@ -321,7 +325,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- ==========Gallery-Section========== -->
 
 <!-- ==========Speaker-Section========== -->
