@@ -26,7 +26,8 @@ export class UserEventDetailsComponent  implements OnInit {
       
       this.event = event || undefined;
       if (this.event?.imagesPath) {
-        const baseUrl = 'https://localhost:7129/';
+        //const baseUrl = 'https://localhost:7129/';
+        const baseUrl = 'http://148.113.192.114:5000/';
         const images = this.event?.imagesPath.split(',');
          localStorage.setItem('selectedEvent', JSON.stringify(this.event));
         this.leftImages = images.slice(0, images.length - 1).map(img => baseUrl + img.trim());
