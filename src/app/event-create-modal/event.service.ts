@@ -39,6 +39,7 @@ export class EventService {
     constructor(private http: HttpClient) { }
 
     createEvent(event: EventModel): Observable<any> {
+        
         const formData = new FormData();
         formData.append('title', event.title || '');
         formData.append('description', event.description || '');
@@ -93,7 +94,7 @@ export class EventService {
                 formData.append('images', file, file.name);  // The key 'images' must match the backend parameter
                 });
             }
-debugger
+
         return this.http.post(
             `${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.UPDATE_EVENT}`,
             formData

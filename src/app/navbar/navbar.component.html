@@ -3,7 +3,7 @@
 
     <div class="navbar-container">
       <!-- Logo -->
-      <ion-buttons slot="start">
+      <ion-buttons slot="start" class="nav-links">
         <ion-button [routerLink]="['/home']" class="logo-button">
           <ion-img src="assets/img/logo/logo.png" alt="Ticket Logo" class="logo-img"></ion-img>
         </ion-button>
@@ -16,9 +16,23 @@
         <ion-button [routerLink]="['/blog']" routerLinkActive="active">Blog</ion-button>
         <ion-button [routerLink]="['/event']" routerLinkActive="active">Contact</ion-button>
         <!-- Login and Logout Separate --><!-- Login and Logout Separate -->
-        <ion-button [routerLink]="['/login']" class="m-2">
+        <ion-button *ngIf="!isLoggedIn" [routerLink]="['/login']" class="m-2">
           <i class="fas fa-sign-in-alt"></i>&nbsp;Login
         </ion-button>
+        <div *ngIf="isLoggedIn" class="user-menu" style="display: flex; align-items: center;">
+
+          <!-- Username display -->
+          <span class="m-2">
+            <i class="fas fa-user"></i>&nbsp;{{ userEmail }}
+          </span>
+          <ion-button [routerLink]="['/myBookings']" routerLinkActive="active">My Bookings</ion-button>
+          <!-- Logout button -->
+          <ion-button (click)="logout()" class="m-2" fill="clear">
+            <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
+          </ion-button>
+         
+
+        </div>
 
         <!-- <ion-button [routerLink]="['/logout']" class="m-2">
           <i class="fas fa-sign-out-alt"></i>&nbsp;Logout

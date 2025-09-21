@@ -52,7 +52,7 @@ export class EventsComponent implements OnDestroy {
     });
   }
   getEventDetails(eventId :number): void{
-    debugger
+    
   
     // this.router.navigate(['/event-details', eventId]);
     this.loading = true;

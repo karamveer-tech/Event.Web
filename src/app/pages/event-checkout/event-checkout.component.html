@@ -48,20 +48,19 @@
       <!-- Left Side -->
       <div class="col-lg-8">
         <!-- Login Widget -->
-        <div
-          class="checkout-widget d-flex flex-wrap align-items-center justify-cotent-between"
-        >
-          <div class="title-area">
-            <h5 class="title">Already Have An Account?</h5>
-            <p>It is a long established fact that a reader will be distracted!</p>
-          </div>
-          <a routerLink="/login" class="sign-in-area">
-            <i class="fal fa-user"></i><span>Login</span>
-          </a>
+       <!-- Show this section only if not logged in as enduser -->
+      <div *ngIf="!isLoggedIn || userRole !== 'enduser'" class="checkout-widget d-flex flex-wrap align-items-center justify-content-between">
+        <div class="title-area">
+          <h5 class="title">Already Have An Account?</h5>
+          <p>It is a long established fact that a reader will be distracted!</p>
         </div>
+        <a (click)="login()" class="sign-in-area">
+          <i class="fal fa-user"></i><span>Login</span>
+        </a>
+      </div>
 
         <!-- Billing Info -->
-        <div class="checkout-widget checkout-contact">
+        <div class="checkout-widget checkout-contact" *ngIf="!isLoggedIn">
           <h5 class="title">Billing Info</h5>
           <form (ngSubmit)="onBillingSubmit()" #billingForm="ngForm">
             <div class="form-group">
@@ -81,7 +80,32 @@
             </div>
           </form>
         </div>
-
+      <div  *ngIf="isLoggedIn">
+        <div  *ngIf="user as u" class="checkout-widget checkout-contact">
+          <h5 class="title">Billing Info</h5>
+          <div class="form-group">
+            <label><strong>Full Name:</strong> 
+              {{ u.name }}
+            </label>
+          </div>
+          <div class="form-group">
+            <label><strong>Email:</strong> 
+              {{ u.email }}
+            </label>
+          </div>
+          <div class="form-group">
+            <label><strong>Phone:</strong> 
+              {{ u.phone }}
+            </label>
+          </div>
+          <!-- <div class="form-group">
+            <label><strong>Address:</strong> 
+              {{ user.address }}
+            </label>
+          </div> -->
+        
+        </div>
+      </div>
         <!-- Promo Code -->
         <div class="checkout-widget checkout-contact">
           <h5 class="title">Promo Code</h5>
@@ -94,9 +118,8 @@
             </div>
           </form>
         </div>
-
         <!-- Payment -->
-        <div class="checkout-widget checkout-card mb-0">
+        <div *ngIf="isLoggedIn && !isFreeTicket" class="checkout-widget checkout-card mb-0">
           <h5 class="title">Payment Option</h5>
           <ul class="payment-option">
             <li [class.active]="selectedPayment === 'card'" (click)="selectPayment('card')">
@@ -145,7 +168,7 @@
           <h4 class="title">Booking Summary</h4>
 
           <!-- Ticket Type Dropdown -->
-          <div class="form-group my-3">
+          <div class="form-group my-3" *ngIf="!isFreeTicket">
             <label>Select Ticket Type</label>
             <select class="form-control" [(ngModel)]="selectedTicket" name="ticketType">
               <option value="">-- Select Ticket --</option>
@@ -156,7 +179,7 @@
           <!-- Ticket Quantity -->
           <div class="form-group my-3">
             <label>Ticket Quantity</label>
-            <input type="number" min="1" [(ngModel)]="ticketQuantity" name="ticketQuantity" class="form-control" />
+            <input type="number" min="1" [(ngModel)]="quantity" name="ticketQuantity" class="form-control" />
           </div>
 
           <!-- Event Info -->
@@ -166,7 +189,7 @@
               <h6 class="subtitle"><span>Available Tickets</span><span>{{ availableTickets }}</span></h6>
               <div class="info"><span>{{ eventDate }}</span><span>Tickets</span></div>
             </li>
-            <li>
+            <li  *ngIf="!isFreeTicket">
               <h6 class="subtitle mb-0"><span>Tickets Price</span><span>{{ ticketPrice | currency }}</span></h6>
             </li>
           </ul>
@@ -189,7 +212,7 @@
         <!-- Pay Amount -->
         <div class="proceed-area text-center">
           <h6 class="subtitle"><span>Pay Amount</span><span>{{ payAmount | currency }}</span></h6>
-          <button class="custom-button" (click)="confirmPayment()">Confirm Payment</button>
+          <button class="custom-button" (click)="confirmPayment()">{{ isFreeTicket ? 'Book Now' : 'Confirm Payment' }}</button>
         </div>
       </div>
     </div>

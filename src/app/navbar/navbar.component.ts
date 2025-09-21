@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, Renderer2 } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -11,16 +11,47 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-   menuOpen = false;
-
+  menuOpen = false;
+  isLoggedIn: boolean = false;
+  userEmail: string = '';
+  userRole: string = '';
+  dropdownOpen: boolean = false;
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
   
-  constructor(private renderer: Renderer2,public router:Router) {}
+  constructor(private renderer: Renderer2,public router:Router,private navCtrl: NavController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+    const token = localStorage.getItem('auth_token');
+    this.userRole = localStorage.getItem('role') || '';
+    this.userEmail = localStorage.getItem('username') || '';
 
+    this.isLoggedIn = !!token && (this.userRole === 'enduser'|| this.userRole === 'admin');
+  }
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  logout(): void {
+   if (localStorage.getItem('auth_token')) {
+      localStorage.removeItem('auth_token');
+    }
+
+    if (localStorage.getItem('role')) {
+      localStorage.removeItem('role');
+    }
+
+    if (localStorage.getItem('email')) {
+      localStorage.removeItem('email');
+    }
+
+    this.dropdownOpen = false;
+    // this.router.navigate(['/login']);
+    window.location.href = '/login';
+  // this.navCtrl.navigateForward(['/login']);
+  }
   ngAfterViewInit() {
     // Load CSS
     [
@@ -72,8 +103,7 @@ export class NavbarComponent implements OnInit {
     script.defer = true;
     this.renderer.appendChild(document.body, script);
   }
-     RouteME () {
-          this.router.navigate(['/event']);
-
-    }
+  RouteME () {
+    this.router.navigate(['/event']);
+  }
 }

@@ -15,6 +15,11 @@ export const CONFIG = {
     GET_USER_EVENTS: '/api/Event/get-user-events',
     GET_EVENT_BY_ID: '/api/Event/get-event-by-id',
     UPDATE_EVENT: '/api/Event/update-event',
-    DELETE_EVENT: '/api/Event/delete-event'
+    DELETE_EVENT: '/api/Event/delete-event',
+    GET_USER_DETAILS_BY_EMAIL: '/api/User/get-user-by-email',
+    GET_USER_DETAILS_BY_ID: '/api/User/get-user-by-id',
+     BOOK_EVENT: '/api/User/book-event',
+     GET_BOOKED_TICKETS_COUNT: '/api/User/get-booked-ticket',
+     GET_MY_BOOKINGS: '/api/User/get-my-bookings',
   }
 };

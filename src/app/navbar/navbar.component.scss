@@ -7,6 +7,8 @@
   align-items: center;
 
   overflow: visible; /* ✅ ensure dropdowns can overflow */
+  position: relative; /* ✅ ensure dropdown positioning context */
+  z-index: 2000; 
 } 
 
 .navbar-container {
@@ -101,4 +103,52 @@
   background-color: rgb(43, 102, 43);
   padding: 4px;
   border-radius: 4px;
+}
+.user-menu {
+  position: relative;
+  ion-button {
+    --padding-start: 10px;
+    --padding-end: 10px;
+
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    min-width: 150px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    ion-button {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: 10px 15px;
+      --background: transparent;
+    }
+  }
+}
+
+
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 4000;
+    min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+
+    ion-button {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: 10px 15px;
+      --background: transparent;
+    }
+  }
 }

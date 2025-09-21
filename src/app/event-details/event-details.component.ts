@@ -34,10 +34,10 @@ export class EventDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private eventService: EventService) {}
 
   ngOnInit() {
-    debugger
+    
      const eventId = Number(this.route.snapshot.paramMap.get('id'));
       this.eventService.getEventById(eventId).subscribe((data: EventModel) => {
-        debugger
+        
         this.data = data;
       });
 

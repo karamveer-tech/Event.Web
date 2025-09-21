@@ -1,7 +1,7 @@
    let countdownInterval;
 
   $(document).ready(function () {
-    debugger
+    
     const eventId = localStorage.getItem('event_Id');
     if (!eventId) {
       return;

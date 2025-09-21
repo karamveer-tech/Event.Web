@@ -83,7 +83,7 @@ export class EventCreateModalComponent implements OnInit, AfterViewInit {
     }
   }
  ngAfterViewInit(): void {
-  debugger
+  
    this.loadGoogleMaps().then(() => {
     // Wait until google.maps.places is ready
     const checkInterval = setInterval(() => {
@@ -96,13 +96,13 @@ export class EventCreateModalComponent implements OnInit, AfterViewInit {
   }
   private loadGoogleMaps(): Promise<void> {
     return new Promise((resolve, reject) => {
-      debugger
+      
       // Already loaded?
       if ((window as any).google && (window as any).google.maps) {
         resolve();
         return;
       }
-debugger
+
       const script = document.createElement('script');
       script.src =
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyDcFSb86CXbGl1Lftb5zdqOJEA1OFhfcVg&libraries=places';
@@ -114,7 +114,7 @@ debugger
     });
   }
  private initAutocomplete(): void {
-  debugger
+  
     const input = this.addressInput ? this.addressInput.nativeElement : document.getElementById('autocomplete') as HTMLInputElement;
    if (!this.addressInput) {
       console.error('Address input not found');
@@ -160,7 +160,7 @@ if (!(window as any).google || !(window as any).google.maps || !(window as any).
 
   // Banner upload
   onBannerUpload(event: any) {
-    debugger
+    
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
       this.event.banner = file;
@@ -174,7 +174,7 @@ if (!(window as any).google || !(window as any).google.maps || !(window as any).
     }
   }
   // onImageUpload(event: any) {
-  //   debugger
+  //   
   //   const file = event.target.files[0];
   //   if (file && file.type.startsWith('image/')) {
   //     this.event.images = file;
@@ -209,7 +209,7 @@ if (!(window as any).google || !(window as any).google.maps || !(window as any).
 //   }
 // }
 onImageUpload(event: any) {
-  debugger
+  
   const files: FileList = event.target.files;
   if (files && files.length > 0) {
     // Ensure images array is initialized
@@ -254,7 +254,7 @@ removeNewImage(index: number) {
 
   // Submit event using service
   submitEvent() {
-    debugger
+    
     if (this.event.id == 0 || this.event.id == null || this.event.id == undefined) {
       this.isSubmitting = true;
       this.eventService.createEvent(this.event).subscribe({

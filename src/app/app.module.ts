@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserEventDetailsComponent } from './pages/user-event-details/user-event-details.component';
+import { LoginComponent } from './login/login.component';
+import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { UserEventDetailsComponent } from './pages/user-event-details/user-event
     HttpClientModule,
     EventCreateModalComponent,
     EventDetailsComponent, 
+    MyBookingsComponent,
+    LoginComponent,
     UserEventDetailsComponent,
     NavbarComponent,
     FooterComponent

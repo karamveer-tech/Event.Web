@@ -43,7 +43,7 @@ $(document).ready(function () {
   // Submit create event form
   $("#event_form_id").on("submit", async function (e) {
     e.preventDefault();
-    debugger;
+    ;
     const formData = new FormData(this);
     formData.set("start_datetime", toIso(formData.get("start_datetime")));
     formData.set("end_datetime", toIso(formData.get("end_datetime")));
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
   // Load and render events
   function loadEvents() {
-    debugger
+    
     $eventListContainer.html('<div class="text-white">Loading events...</div>');
 
     // $.ajax({
@@ -149,7 +149,7 @@ $(document).ready(function () {
 
   // Click to view event details
   $(document).on("click", ".event-card", function () {
-    debugger
+    
     const id = $(this).data("id");
     localStorage.setItem("event_Id", id);
     window.location.href = `/event-details`;

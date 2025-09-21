@@ -55,11 +55,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   loadEvents(): void {
-    debugger
+    
     this.loading = true;
     this.eventService.getEvents().subscribe({
       next: (data: EventModel[]) => {
-        debugger
+        
         this.events = data;
         this.loading = false;
       },
@@ -87,7 +87,20 @@ deleteEvent(eventId: number) {
   }
 }
 
+logout():void{
+  if (localStorage.getItem('auth_token')) {
+      localStorage.removeItem('auth_token');
+    }
 
+    if (localStorage.getItem('role')) {
+      localStorage.removeItem('role');
+    }
+
+    if (localStorage.getItem('email')) {
+      localStorage.removeItem('email');
+    }
+  window.location.href = '/login';
+}
 
   saveEvent(event: any) {
     console.log('Save');

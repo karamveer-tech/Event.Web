@@ -27,7 +27,7 @@ $(document).ready(function () {
         }
         // Redirect to dashboard.html
         var redirect_url = localStorage.getItem('redirect_url');
-        debugger
+        
         if(redirect_url != '' && redirect_url != null){
           window.location.href = redirect_url;
         } else if (response.data.role_name == 'admin') {

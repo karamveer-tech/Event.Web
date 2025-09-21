@@ -82,7 +82,7 @@ function renderEventList(events) {
   });
   // Click to view event details
   $(document).on("click", ".event-card", function () {
-    debugger
+    
     const id = $(this).data("id");
     localStorage.setItem("event_Id", id);
     window.location.href = `/event-details`;

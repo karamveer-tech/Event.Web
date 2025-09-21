@@ -87,11 +87,11 @@ export class IndexComponent implements OnInit {
   //   this.renderer.appendChild(document.body, script);
   // }
   loadEvents(): void {
-    debugger
+    
     this.loading = true;
     this.eventService.getUserEvents().subscribe({
       next: (data: EventModel[]) => {
-        debugger
+        
         this.events = data;
         this.loading = false;
       },

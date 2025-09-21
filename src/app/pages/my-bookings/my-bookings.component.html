@@ -1,0 +1,147 @@
+<div class="scroll-container">
+
+  <!-- ==========Banner-Section========== -->
+<section class="banner-section" style="padding-bottom: 100px !important;">
+    <div class="banner-bg bg-fixed" style="background:url('img/banner/banner-event.jpg')"></div>
+    <div class="container">
+        <div class="banner-content">
+            <h1 class="title bold"> <span class="color-theme">My</span> Bookings</h1>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+<section class="movie-section bg-two">
+  <div class="container mt-4">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-12 mb-12" *ngFor="let event of myBookings">
+        <div class="card h-100 shadow-sm">
+
+          <!-- Banner on top -->
+          <img [src]="event.banner_path" 
+               class="card-img-top img-fluid"
+               style="height:250px; object-fit:cover; width:100%;" 
+               alt="Event Banner">
+
+          <!-- Content below banner -->
+          <div class="card-body">
+            <div class="row">
+              
+              <!-- Left side: Event details -->
+              <div class="col-md-6">
+                <h5 class="card-title">{{ event.title }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+                <p class="mb-1"><strong>Location:</strong> {{ event.location | uppercase }}</p>
+                <p class="mb-1"><strong>Start:</strong> {{ event.start_datetime | date: 'medium' }}</p>
+                <p class="mb-1"><strong>End:</strong> {{ event.end_datetime | date: 'medium' }}</p>
+                <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>
+              </div>
+
+              <!-- Right side: QR & MAP -->
+              <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <div class="row w-100">
+                  <div class="col-6 text-center border p-3">
+                    <strong>QR</strong>
+                    <!-- Add QR image here -->
+                    <img src="./assets/img/event/qr-sample.png" alt="QR Code" class="img-fluid mt-2">
+                  </div>
+                  <div class="col-6 text-center border p-3">
+                    <strong>MAP</strong>
+                    <!-- Add Map image/iframe here -->
+                    <img src="./assets/img/event/map-sample.JPG" alt="Map" class="img-fluid mt-2">
+                  </div>
+                </div>
+              </div>
+              <div class="mt-auto">
+                <button class="btn btn-sm btn-success w-100" (click)="shareEventDetails(event.id)">
+                  Share Details
+                </button>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="movie-section bg-two">
+<div class="container mt-4">
+   <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-12 mb-12" *ngFor="let event of myBookings">
+        <div class="card h-100 shadow-sm">
+          <img [src]="event.banner_path" class="card-img-top img-fluid"
+               style="height:200px; object-fit:cover; width:100%;" alt="Event Banner">
+          <div class="card-body" >
+            <h5 class="card-title">{{ event.title }}</h5>
+            <p class="card-text">{{ event.description }}</p>
+            <p class="mb-1"><strong>Location:</strong> {{ event.location  | uppercase}}</p>
+            <p class="mb-1"><strong>Start:</strong> {{ event.start_datetime  | date: 'medium'}}</p>
+            <p class="mb-1"><strong>End:</strong> {{ event.end_datetime | date: 'medium' }}</p>
+            <p *ngIf="event.ticketType"><strong>Ticket Type:</strong> {{ event.ticketType }}</p>
+
+          </div>
+           <div class="text-center mt-4 justify-content-center align-items-center">
+            Rohit Ratna
+          </div>
+        </div>
+      </div>
+    </div>
+   
+</div>
+</section> -->
+
+<!-- <section class="event-details padding-bottom mt-4">
+<div class="speaker-gallery">
+  <div class="row m-0">
+    <div class="col-md-6 p-0">
+      <div class="row m-0">
+        <div class="col-sm-6 p-0" *ngFor="let img of leftImages; let i = index">
+          <div class="gallery-item two">
+            <div class="gallery-thumb">
+              <a [href]="img" class="img-pop">
+                <i class="fal fa-compress"></i>
+              </a>
+              <img [src]="img" alt="gallery">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</section> -->
+<!-- ==========Event-About========== -->
+<section class="event-about padding-top padding-bottom">
+    <div class="container">
+        <div class="row justify-content-between flex-wrap-reverse">
+            <div class="col-lg-7 col-xl-6">
+                <div class="event-about-content">
+                    <div class="section-header-3 left-style m-0">
+                        <span class="cate">join our event</span>
+                        <h2 class="title">Learning Conference - <span>2023</span></h2>
+                        <p>
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.
+                        </p>
+                        <p>
+                            Sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.
+                        </p>
+                        <button class="custom-button" id="book_tickets_button_two">book tickets</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-7">
+                <div class="event-about-thumb">
+                    <img src="./assets/img/event/event-about.jpg" alt="event">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Event-About========== -->
+ </div>
+<!-- ==========Event-Section========== -->

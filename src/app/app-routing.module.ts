@@ -4,7 +4,11 @@ import { StaticPageComponent } from './pages/static-page/static-page.component';
 
 const routes: Routes = [
   // Dynamic routes with components loaded lazily
-   {
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.component').then(m => m.LoginComponent)
+  },
+  {
     path: 'event-checkoutme',
     loadComponent: () => import('./pages/event-checkout/event-checkout.component').then(m => m.EventCheckoutComponent)
   },
@@ -12,10 +16,13 @@ const routes: Routes = [
     path: 'event-details',
     loadComponent: () => import('./event-details/event-details.component').then(m => m.EventDetailsComponent)
   },
-    {
+  {
     path: 'user-event-details',
     loadComponent: () => import('./pages/user-event-details/user-event-details.component').then(m => m.UserEventDetailsComponent)
-  
+  },
+   {
+    path: 'myBookings',
+    loadComponent: () => import('./pages/my-bookings/my-bookings.component').then(m => m.MyBookingsComponent)
   },
   { path: 'event-details/:id', 
     loadComponent: () => import('./event-details/event-details.component').then(m => m.EventDetailsComponent) 
@@ -39,7 +46,8 @@ const routes: Routes = [
   {
     path: 'edit-event/:id', 
     loadComponent: () => import('./event-create-modal/event-create-modal.component').then(m => m.EventCreateModalComponent)
-  },
+  }, 
+
   // Static HTML routes using StaticPageComponent
   { path: 'about', component: StaticPageComponent, data: { htmlFile: 'about' } },
   { path: 'apps-download', component: StaticPageComponent, data: { htmlFile: 'apps-download' } },
@@ -57,7 +65,7 @@ const routes: Routes = [
   { path: 'index', component: StaticPageComponent, data: { htmlFile: 'index' } },
   { path: 'index-2', component: StaticPageComponent, data: { htmlFile: 'index-2' } },
   { path: 'index-3', component: StaticPageComponent, data: { htmlFile: 'index-3' } },
-  { path: 'login', component: StaticPageComponent, data: { htmlFile: 'login' } },
+  // { path: 'login', component: StaticPageComponent, data: { htmlFile: 'login' } },
   { path: 'movie-checkout', component: StaticPageComponent, data: { htmlFile: 'movie-checkout' } },
   { path: 'movie-details', component: StaticPageComponent, data: { htmlFile: 'movie-details' } },
   { path: 'movie-details-2', component: StaticPageComponent, data: { htmlFile: 'movie-details-2' } },

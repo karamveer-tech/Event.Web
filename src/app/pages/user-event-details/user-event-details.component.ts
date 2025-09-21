@@ -18,22 +18,33 @@ export class UserEventDetailsComponent  implements OnInit {
   constructor(private eventDataService: EventService,private navCtrl: NavController) { }
 
   ngOnInit(): void {
+     if (this.isPageReloaded()) {
+      // Redirect only on browser refresh / direct URL reload
+       window.location.href = '/event';
+    }
     this.eventDataService.selectedEvent$.subscribe(event => {
-      debugger
+      
       this.event = event || undefined;
       if (this.event?.imagesPath) {
-    const baseUrl = 'https://localhost:7129/';
-    const images = this.event?.imagesPath.split(',');
-
-    this.leftImages = images.slice(0, images.length - 1).map(img => baseUrl + img.trim());
-    this.rightImage = images.length ? baseUrl + images[images.length - 1].trim() : null;
-  }
+        const baseUrl = 'https://localhost:7129/';
+        const images = this.event?.imagesPath.split(',');
+         localStorage.setItem('selectedEvent', JSON.stringify(this.event));
+        this.leftImages = images.slice(0, images.length - 1).map(img => baseUrl + img.trim());
+        this.rightImage = images.length ? baseUrl + images[images.length - 1].trim() : null;
+      }
     });
+  }
+  private isPageReloaded(): boolean {
+    // Works in most browsers
+    return (performance.navigation && performance.navigation.type === performance.navigation.TYPE_RELOAD) ||
+           performance.getEntriesByType('navigation')
+                      .some((nav: any) => nav.type === 'reload');
   }
   closeDetails(): void {
     this.eventDataService.setSelectedEvent(null);
   }
   goToDetails() {
+    
   this.navCtrl.navigateForward(['/event-checkoutme']);
 }
 
