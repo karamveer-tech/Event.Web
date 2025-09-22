@@ -53,21 +53,37 @@ export class EventsComponent implements OnDestroy {
   }
   getEventDetails(eventId :number): void{
     
-  
+   this.loading = true;
+
+  this.eventService.getEventById(eventId).subscribe(
+    (data: EventModel) => {
+      // Send data via service
+      this.eventService.setSelectedEvent(data);
+
+      // Navigate to user-event-details/:id
+      this.navCtrl.navigateForward(['/user-event-details', eventId]);
+
+      this.loading = false;
+    },
+    (err) => {
+      console.error('Error fetching event:', err);
+      this.loading = false;
+    }
+  );
     // this.router.navigate(['/event-details', eventId]);
-    this.loading = true;
-    this.eventService.getEventById(eventId).subscribe(
-      (data: EventModel) => {
-        // Send data via service
-        this.eventService.setSelectedEvent(data);
-        this.navCtrl.navigateForward(['/user-event-details']);
-        this.loading = false;
-      },
-      (err) => {
-        console.error('Error fetching event:', err);
-        this.loading = false;
-      }
-    );
+    // this.loading = true;
+    // this.eventService.getEventById(eventId).subscribe(
+    //   (data: EventModel) => {
+    //     // Send data via service
+    //     this.eventService.setSelectedEvent(data);
+    //     this.navCtrl.navigateForward(['/user-event-details']);
+    //     this.loading = false;
+    //   },
+    //   (err) => {
+    //     console.error('Error fetching event:', err);
+    //     this.loading = false;
+    //   }
+    // );
   }
   // loadStyle(href: string) {
   //   const link = this.renderer.createElement('link');

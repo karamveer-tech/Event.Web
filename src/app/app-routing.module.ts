@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { StaticPageComponent } from './pages/static-page/static-page.component';
+import { QrComponent } from './qr/qr.component';
 
 const routes: Routes = [
   // Dynamic routes with components loaded lazily
@@ -16,8 +17,12 @@ const routes: Routes = [
     path: 'event-details',
     loadComponent: () => import('./event-details/event-details.component').then(m => m.EventDetailsComponent)
   },
-  {
-    path: 'user-event-details',
+  // {
+  //   path: 'user-event-details',
+  //   loadComponent: () => import('./pages/user-event-details/user-event-details.component').then(m => m.UserEventDetailsComponent)
+  // },
+    {
+    path: 'user-event-details/:id',
     loadComponent: () => import('./pages/user-event-details/user-event-details.component').then(m => m.UserEventDetailsComponent)
   },
    {
@@ -47,6 +52,7 @@ const routes: Routes = [
     path: 'edit-event/:id', 
     loadComponent: () => import('./event-create-modal/event-create-modal.component').then(m => m.EventCreateModalComponent)
   }, 
+  { path: 'qr', component: QrComponent },
 
   // Static HTML routes using StaticPageComponent
   { path: 'about', component: StaticPageComponent, data: { htmlFile: 'about' } },

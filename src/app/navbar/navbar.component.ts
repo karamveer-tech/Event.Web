@@ -106,4 +106,7 @@ export class NavbarComponent implements OnInit {
   RouteME () {
     this.router.navigate(['/event']);
   }
+  RouteLogin () {
+    this.router.navigate(['/login']);
+  }
 }

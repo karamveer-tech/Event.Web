@@ -107,7 +107,8 @@ export class IndexComponent implements OnInit {
       (data: EventModel) => {
         // Send data via service
         this.eventService.setSelectedEvent(data);
-        this.navCtrl.navigateForward(['/user-event-details']);
+        // Navigate to user-event-details/:id
+      this.navCtrl.navigateForward(['/user-event-details', eventId]);
         this.loading = false;
       },
       (err) => {

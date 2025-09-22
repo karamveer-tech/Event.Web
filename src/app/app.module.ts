@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,10 +15,12 @@ import { CommonModule } from '@angular/common';
 import { UserEventDetailsComponent } from './pages/user-event-details/user-event-details.component';
 import { LoginComponent } from './login/login.component';
 import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
+import { QrComponent } from './qr/qr.component';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
     ],
   imports: [
     BrowserModule,
@@ -34,7 +36,11 @@ import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
     LoginComponent,
     UserEventDetailsComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    RouterModule,
+    QRCodeComponent,
+    QrComponent
+
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

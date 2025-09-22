@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MyBookings, UsersService } from '../users.service';
 import { CommonModule, DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-my-bookings',
   templateUrl: './my-bookings.component.html',
-  imports: [CommonModule, DatePipe],
+  standalone: true,  
+  imports: [CommonModule,RouterModule, QRCodeComponent,DatePipe],
   styleUrls: ['./my-bookings.component.scss'],
 })
 export class MyBookingsComponent  implements OnInit {
@@ -23,7 +26,6 @@ myBookings:MyBookings[] = [];
 loadUserBookings(userId: number) {
     this.userDataService.loadUserBookings(userId).subscribe({
       next: (res) => {
-        
         this.myBookings = res;
         console.log('User Details:', res);
       },

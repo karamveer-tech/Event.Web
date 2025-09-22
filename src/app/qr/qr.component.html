@@ -1,0 +1,17 @@
+<div class="qr-wrapper">
+  <!-- the qrcode component: width & errorCorrectionLevel are supported inputs -->
+  <qrcode
+    (qrCodeURL)="onChangeURL($event)"
+    [qrdata]="qrData"
+    [width]="256"
+    [errorCorrectionLevel]="'M'"
+    [margin]="4"
+  ></qrcode>
+
+  <div class="controls" style="margin-top: 10px;">
+    <!-- download link created from qrCodeURL event -->
+    <a *ngIf="qrCodeDownloadLink" [href]="qrCodeDownloadLink" download="qrcode.png">Download QR</a>
+  </div>
+
+  <p class="mt-2 small">Encoded: <code>{{ qrData }}</code></p>
+</div>

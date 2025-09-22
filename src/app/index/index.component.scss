@@ -15,10 +15,34 @@
 /* ====== Full width search bar styling ====== */
 .search-ticket-section {
   width: 100%;
-  position: relative;
+  position: static;
   z-index: 2;
   margin-bottom: 2.5rem; /* space below the strip */
 }
+.banner-bg {
+  // background-image: url('/assets/img/banner/banner-1.jpg');
+  background-size: cover;       /* Cover the whole div */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat */
+  height: 78vh;                /* Full viewport height */
+  display: flex;                /* Use flexbox to center content */
+  align-items: center;          /* Vertically center */
+  justify-content: center;      /* Horizontally center */
+}
+
+.banner-content {
+  color: white;                 /* Text color on top of image */
+  text-align: center;
+  padding: 0 20px;              /* Optional padding for mobile */
+}
+
+@media (max-width: 768px) {
+  .banner-content {
+    text-align: center;         /* Ensure mobile looks good */
+    padding: 0 10px;
+  }
+}
+
 
 /* the full-width visual strip (edge-to-edge) */
 .search-bar-wrap {
