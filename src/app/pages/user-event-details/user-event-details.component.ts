@@ -58,7 +58,7 @@ export class UserEventDetailsComponent  implements OnInit {
   // Helper function to process images
 private prepareImages(): void {
   if (this.event?.imagesPath) {
-    const baseUrl = 'https://localhost:7129/';
+    const baseUrl = 'http://148.113.192.114:5000';
     const images = this.event.imagesPath.split(',');
     this.leftImages = images.slice(0, images.length - 1).map(img => baseUrl + img.trim());
     this.rightImage = images.length ? baseUrl + images[images.length - 1].trim() : null;
