@@ -24,6 +24,7 @@ myBookings:MyBookings[] = [];
     this.loadUserBookings(this.userId);
   }
 loadUserBookings(userId: number) {
+  debugger
     this.userDataService.loadUserBookings(userId).subscribe({
       next: (res) => {
         this.myBookings = res;
