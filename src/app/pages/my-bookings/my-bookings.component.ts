@@ -3,6 +3,7 @@ import { MyBookings, UsersService } from '../users.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { CONFIG } from 'src/app/confiq/confiq';
 
 @Component({
   selector: 'app-my-bookings',
@@ -14,14 +15,23 @@ import { QRCodeComponent } from 'angularx-qrcode';
 export class MyBookingsComponent  implements OnInit {
 userId: number = 0;
 myBookings:MyBookings[] = [];
-
+eventPath: string = '';
+eventId: number = 0;
 
   constructor(private userDataService: UsersService) {
     this.userId = Number(localStorage.getItem('userId'));
+    const storedEvent = localStorage.getItem("selectedEvent");
+
+if (storedEvent) {
+  const eventObj = JSON.parse(storedEvent);
+  this.eventId = eventObj.id;
+
+}
    }
 
   ngOnInit() {
     this.loadUserBookings(this.userId);
+    this.eventPath=CONFIG.API_BASE_URL+'/'+'user-event-details'+'/'+this.eventId;
   }
 loadUserBookings(userId: number) {
   debugger

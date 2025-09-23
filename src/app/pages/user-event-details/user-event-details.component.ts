@@ -15,24 +15,29 @@ export class UserEventDetailsComponent  implements OnInit {
    event?: EventModel;
     leftImages: string[] = [];
     rightImage: string | null = null;
-     eventId: string | null = null;
-  constructor(private eventDataService: EventService,private navCtrl: NavController, private route: ActivatedRoute) { }
+     eventId: number | null = null;
+     
+  constructor(private eventDataService: EventService,private navCtrl: NavController, private route: ActivatedRoute) { 
+ this.route.paramMap.subscribe(params => {
+    const id = params.get('id');
+    this.eventId = id ? +id : null;  // converts to number
+  });
+  }
 
   ngOnInit(): void {
-     // Get :id from route
-     // Get :id from route
-  this.eventId = this.route.snapshot.paramMap.get('id');
+  const idParam = this.route.snapshot.paramMap.get('id');
+this.eventId = idParam ? Number(idParam) : null;
 
-  if (!this.eventId) {
-    // If no id, redirect to event listing
-    this.navCtrl.navigateRoot(['/event']);
-    return;
-  }
+  // if (!this.eventId) {
+  //   // If no id, redirect to event listing
+  //   this.navCtrl.navigateRoot(['/event']);
+  //   return;
+  // }
 
   // Fetch event either from service or API
   this.eventDataService.selectedEvent$.subscribe(event => {
     // If event is not loaded or does not match the route param, fetch from API
-    if (!event || event.id.toString() !== this.eventId) {
+    if (!event || event.id !== this.eventId) {
       this.eventDataService.getEventById(+this.eventId!).subscribe(
         data => {
           this.event = data;
@@ -58,7 +63,7 @@ export class UserEventDetailsComponent  implements OnInit {
   // Helper function to process images
 private prepareImages(): void {
   if (this.event?.imagesPath) {
-    const baseUrl = 'http://148.113.192.114:5000';
+    const baseUrl = 'http://148.113.192.114:5000/';
     const images = this.event.imagesPath.split(',');
     this.leftImages = images.slice(0, images.length - 1).map(img => baseUrl + img.trim());
     this.rightImage = images.length ? baseUrl + images[images.length - 1].trim() : null;

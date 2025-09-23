@@ -21,9 +21,15 @@ const routes: Routes = [
   //   path: 'user-event-details',
   //   loadComponent: () => import('./pages/user-event-details/user-event-details.component').then(m => m.UserEventDetailsComponent)
   // },
-    {
+  //   {
+  //   path: 'user-event-details/:id',
+  //   loadComponent: () => import('./pages/user-event-details/user-event-details.component').then(m => m.UserEventDetailsComponent)
+  // },
+  {
     path: 'user-event-details/:id',
-    loadComponent: () => import('./pages/user-event-details/user-event-details.component').then(m => m.UserEventDetailsComponent)
+  loadComponent: () =>
+    import('./pages/user-event-details/user-event-details.component')
+      .then(m => m.UserEventDetailsComponent)
   },
    {
     path: 'myBookings',
