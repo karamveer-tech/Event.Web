@@ -4,6 +4,7 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
 import { EventModel, EventService } from '../event-create-modal/event.service';
 import { EventsComponent } from '../events/events.component';
+import { UsersService } from '../pages/users.service';
 
 @Component({
   selector: 'app-index',
@@ -17,10 +18,21 @@ import { EventsComponent } from '../events/events.component';
 export class IndexComponent implements OnInit {
   loading = false;
   events: EventModel[] = [];
+  apiVersion: string = ''; // Default version
 
-  constructor(private eventService: EventService, private navCtrl: NavController) { }
+  constructor(private eventService: EventService, private navCtrl: NavController,private userDataService: UsersService) { }
 
   ngOnInit() {
+    debugger
+     this.userDataService.getApiVersion().subscribe({
+      next: (res) => {
+        debugger
+        this.apiVersion = res;
+        console.log('API Version:', res);},
+      error: (err) => {
+        console.error('Failed to load api version', err);
+      }
+    });
     this.loadEvents();
   }
 

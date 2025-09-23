@@ -106,4 +106,7 @@ export class UsersService {
     loadUserBookings(userId: number): Observable<any> {
         return this.http.get<any>(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.GET_MY_BOOKINGS}?userId=${userId}`);
     }
+    getApiVersion(): Observable<string> {
+      return this.http.get(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.GET_API_VERSION}`, { responseType: 'text' });
+  }
 }
