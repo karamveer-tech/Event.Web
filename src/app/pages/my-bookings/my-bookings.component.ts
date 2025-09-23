@@ -31,7 +31,7 @@ if (storedEvent) {
 
   ngOnInit() {
     this.loadUserBookings(this.userId);
-    this.eventPath=CONFIG.baseUrlForQR + this.eventId;
+    this.eventPath=CONFIG.baseUrlForQR;
   }
 loadUserBookings(userId: number) {
   debugger

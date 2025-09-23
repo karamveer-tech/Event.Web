@@ -50,7 +50,7 @@
 
                       <br /> -->
                   <qrcode
-                      [qrdata]="eventPath"
+                      [qrdata]="eventPath + event.event_id"
                       [width]="128"
                       [errorCorrectionLevel]="'M'">
                     </qrcode>
