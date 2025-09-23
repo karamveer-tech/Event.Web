@@ -23,5 +23,6 @@ export const CONFIG = {
      BOOK_EVENT: '/api/User/book-event',
      GET_BOOKED_TICKETS_COUNT: '/api/User/get-booked-ticket',
      GET_MY_BOOKINGS: '/api/User/get-my-bookings',
+     GET_API_VERSION: '/api/User/api-version',
   }
 };
