@@ -65,68 +65,7 @@ export class EventDetailsComponent implements OnInit {
     // );
   }
 
-  // startCountdown(targetDate: Date) {
-  //   const update = () => {
-  //     const now = new Date().getTime();
-  //     const target = targetDate.getTime();
-  //     const distance = target - now;
-
-  //     if (distance <= 0) {
-  //       this.days = this.hours = this.minutes = this.seconds = '00';
-  //       clearInterval(this.countdownInterval);
-  //       return;
-  //     }
-
-  //     const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-  //     const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  //     const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  //     const s = Math.floor((distance % (1000 * 60)) / 1000);
-
-  //     this.days = d.toString().padStart(2, '0');
-  //     this.hours = h.toString().padStart(2, '0');
-  //     this.minutes = m.toString().padStart(2, '0');
-  //     this.seconds = s.toString().padStart(2, '0');
-  //   };
-
-  //   update(); // immediate run
-  //   this.countdownInterval = setInterval(update, 1000);
-  // }
-
- // ngAfterViewInit() {
-    // Load required styles
-    // [
-    //   'assets/css/bootstrap.min.css',
-    //   'assets/css/fontawesome.min.css',
-    //   'assets/css/animate.css',
-    //   'assets/css/magnific-popup.css',
-    //   'assets/css/odometer.css',
-    //   'assets/css/owl.carousel.min.css',
-    //   'assets/css/owl.theme.default.min.css',
-    //   'assets/css/nice-select.css',
-    //   'assets/css/jquery.animatedheadline.css',
-    //   'assets/css/style.css'
-    // ].forEach(href => this.loadStyle(href));
-
-    // Load JS except eventDetails.js (now handled in Angular)
-    // [
-    //   'assets/js/jquery-3.6.0.min.js',
-    //   'assets/js/modernizr-3.6.0.min.js',
-    //   'assets/js/plugins.js',
-    //   'assets/js/bootstrap.bundle.min.js',
-    //   'assets/js/heandline.js',
-    //   'assets/js/isotope.pkgd.min.js',
-    //   'assets/js/magnific-popup.min.js',
-    //   'assets/js/owl.carousel.min.js',
-    //   'assets/js/wow.min.js',
-    //   'assets/js/odometer.min.js',
-    //   'assets/js/viewport.jquery.js',
-    //   'assets/js/nice-select.js',
-    //   'assets/js/main.js',
-    //   'assets/js/footer.js',
-    //   'assets/js/config.js',
-    //   'assets/js/eventDetails.js',
-    //  ].forEach(src => this.loadScript(src));
-  //}
+  
   closeDetails(): void {
     this.eventService.setSelectedEvent(null);
   }

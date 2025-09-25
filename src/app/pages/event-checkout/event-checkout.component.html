@@ -1,7 +1,8 @@
 
 
-<!-- ==========Banner-Section========== -->
  <div class="scroll-container">
+
+<!-- ========== Banner Section ========== -->
 <section
   class="details-banner event-details-banner hero-area seat-plan-banner"
   [ngStyle]="{ 'background-image': 'url(assets/img/banner/banner-2.jpg)' }"
@@ -10,28 +11,27 @@
     <div class="details-banner-wrapper">
       <div class="details-banner-content style-two">
         <h3 class="title">
-          <span class="d-block">Learning</span>
-          <span class="d-block">Conference -2023</span>
+          <span class="d-block">{{ event?.title }}</span>
         </h3>
         <div class="tags">
-          <span>290 Private Lane Street, New York, USA</span>
+          <span>{{ event?.address }}</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==========Page-Title========== -->
+<!-- ========== Page Title ========== -->
 <section class="page-title bg-one">
   <div class="container">
     <div class="page-title-area">
       <div class="item md-order-1">
         <a routerLink="/change-plan" class="custom-button back-button">
-          <i class="fal fa-reply"></i>change plan
+          <i class="fal fa-reply"></i> Change Plan
         </a>
       </div>
       <div class="item date-item">
-        <span class="date">FRI, FEB 15 2023</span>
+        <span class="date">{{ event?.start_datetime | date:'EEE, MMM dd yyyy' }}</span>
       </div>
       <div class="item">
         <small>TIME LEFT</small>
@@ -41,71 +41,59 @@
   </div>
 </section>
 
-<!-- ==========Event-Section========== -->
+<!-- ========== Event Section ========== -->
 <div class="movie-facility padding-bottom padding-top">
   <div class="container">
     <div class="row">
       <!-- Left Side -->
       <div class="col-lg-8">
         <!-- Login Widget -->
-       <!-- Show this section only if not logged in as enduser -->
-      <div *ngIf="!isLoggedIn || userRole !== 'enduser'" class="checkout-widget d-flex flex-wrap align-items-center justify-content-between">
-        <div class="title-area">
-          <h5 class="title">Already Have An Account?</h5>
-          <p>It is a long established fact that a reader will be distracted!</p>
+        <div *ngIf="!isLoggedIn || userRole !== 'enduser'" class="checkout-widget d-flex flex-wrap align-items-center justify-content-between">
+          <div class="title-area">
+            <h5 class="title">Already Have An Account?</h5>
+            <p>It is a long established fact that a reader will be distracted!</p>
+          </div>
+          <a (click)="login()" class="sign-in-area">
+            <i class="fal fa-user"></i><span>Login</span>
+          </a>
         </div>
-        <a (click)="login()" class="sign-in-area">
-          <i class="fal fa-user"></i><span>Login</span>
-        </a>
-      </div>
 
-        <!-- Billing Info -->
+        <!-- Billing Info for Guest -->
         <div class="checkout-widget checkout-contact" *ngIf="!isLoggedIn">
           <h5 class="title">Billing Info</h5>
           <form (ngSubmit)="onBillingSubmit()" #billingForm="ngForm">
             <div class="form-group">
-              <input type="text" placeholder="Full Name" [(ngModel)]="billing.fullName" name="fullName" />
+              <input type="text" placeholder="Full Name" [(ngModel)]="billing.fullName" name="fullName" required />
             </div>
             <div class="form-group">
-              <input type="email" placeholder="Enter email" [(ngModel)]="billing.email" name="email" />
+              <input type="email" placeholder="Enter email" [(ngModel)]="billing.email" name="email" required />
             </div>
             <div class="form-group">
-              <input type="text" placeholder="Enter Phone" [(ngModel)]="billing.phone" name="phone" />
+              <input type="text" placeholder="Enter Phone" [(ngModel)]="billing.phone" name="phone" required />
             </div>
             <div class="form-group">
-              <input type="text" placeholder="Enter address" [(ngModel)]="billing.address" name="address" />
+              <input type="text" placeholder="Enter address" [(ngModel)]="billing.address" name="address" required />
             </div>
             <div class="form-group">
               <button type="submit" class="custom-button">Continue</button>
             </div>
           </form>
         </div>
-      <div  *ngIf="isLoggedIn">
-        <div  *ngIf="user as u" class="checkout-widget checkout-contact">
+
+        <!-- Billing Info for Logged-in User -->
+        <div *ngIf="isLoggedIn && user as u" class="checkout-widget checkout-contact">
           <h5 class="title">Billing Info</h5>
           <div class="form-group">
-            <label><strong>Full Name:</strong> 
-              {{ u.name }}
-            </label>
+            <label><strong>Full Name:</strong> {{ u.name }}</label>
           </div>
           <div class="form-group">
-            <label><strong>Email:</strong> 
-              {{ u.email }}
-            </label>
+            <label><strong>Email:</strong> {{ u.email }}</label>
           </div>
           <div class="form-group">
-            <label><strong>Phone:</strong> 
-              {{ u.phone }}
-            </label>
+            <label><strong>Phone:</strong> {{ u.phone }}</label>
           </div>
-          <!-- <div class="form-group">
-            <label><strong>Address:</strong> 
-              {{ user.address }}
-            </label>
-          </div> -->
-        
         </div>
-      </div>
+
         <!-- Promo Code -->
         <div class="checkout-widget checkout-contact">
           <h5 class="title">Promo Code</h5>
@@ -118,17 +106,18 @@
             </div>
           </form>
         </div>
-        <!-- Payment -->
+
+        <!-- Payment Options -->
         <div *ngIf="isLoggedIn && !isFreeTicket" class="checkout-widget checkout-card mb-0">
           <h5 class="title">Payment Option</h5>
           <ul class="payment-option">
             <li [class.active]="selectedPayment === 'card'" (click)="selectPayment('card')">
               <i class="fas fa-credit-card-front"></i> <span>Card</span>
             </li>
-            <li (click)="selectPayment('paypal')">
+            <li [class.active]="selectedPayment === 'paypal'" (click)="selectPayment('paypal')">
               <i class="fab fa-cc-paypal"></i> <span>Paypal</span>
             </li>
-            <li (click)="selectPayment('stripe')">
+            <li [class.active]="selectedPayment === 'stripe'" (click)="selectPayment('stripe')">
               <i class="fab fa-cc-stripe"></i> <span>Stripe</span>
             </li>
           </ul>
@@ -137,19 +126,19 @@
           <form (ngSubmit)="confirmPayment()" #paymentForm="ngForm">
             <div class="form-group w-100">
               <label>Name on the Card</label>
-              <input type="text" [(ngModel)]="card.name" name="cardName" />
+              <input type="text" [(ngModel)]="card.name" name="cardName" required />
             </div>
             <div class="form-group w-100">
               <label>Card Number</label>
-              <input type="text" [(ngModel)]="card.number" name="cardNumber" />
+              <input type="text" [(ngModel)]="card.number" name="cardNumber" required />
             </div>
             <div class="form-group">
               <label>Expiration</label>
-              <input type="text" [(ngModel)]="card.expiry" name="cardExpiry" placeholder="MM/YY" />
+              <input type="text" [(ngModel)]="card.expiry" name="cardExpiry" placeholder="MM/YY" required />
             </div>
             <div class="form-group">
               <label>CVV</label>
-              <input type="text" [(ngModel)]="card.cvv" name="cardCvv" />
+              <input type="text" [(ngModel)]="card.cvv" name="cardCvv" required />
             </div>
             <div class="form-group check-group">
               <input id="saveCard" type="checkbox" [(ngModel)]="card.save" name="saveCard" />
@@ -172,37 +161,44 @@
             <label>Select Ticket Type</label>
             <select class="form-control" [(ngModel)]="selectedTicket" name="ticketType">
               <option value="">-- Select Ticket --</option>
-              <option *ngFor="let ticket of ticketTypes" [value]="ticket.id">{{ ticket.name }}</option>
+              <option *ngFor="let ticket of event?.paidTickets" [value]="ticket.id">
+                {{ ticket.name }} - {{ ticket.price | currency }}
+              </option>
             </select>
           </div>
 
           <!-- Ticket Quantity -->
           <div class="form-group my-3">
             <label>Ticket Quantity</label>
-            <input type="number" min="1" [(ngModel)]="quantity" name="ticketQuantity" class="form-control" />
+            <input type="number" min="1" [(ngModel)]="ticketQuantity" name="ticketQuantity" class="form-control" (input)="calculatePayAmount()" />
           </div>
 
           <!-- Event Info -->
           <ul>
-            <li><h6 class="subtitle">{{ eventName }}</h6></li>
+            <li><h6 class="subtitle">{{ event?.title }}</h6></li>
             <li>
               <h6 class="subtitle"><span>Available Tickets</span><span>{{ availableTickets }}</span></h6>
-              <div class="info"><span>{{ eventDate }}</span><span>Tickets</span></div>
+              <div class="info"><span>{{ event?.start_datetime | date:'EEE, MMM dd yyyy' }}</span><span>Tickets</span></div>
             </li>
-            <li  *ngIf="!isFreeTicket">
-              <h6 class="subtitle mb-0"><span>Tickets Price</span><span>{{ ticketPrice | currency }}</span></h6>
+            <li *ngIf="!isFreeTicket && event?.paidTickets?.length">
+              <h6 class="subtitle mb-0">
+                <span>Tickets Price</span>
+                <span>{{ event.paidTickets?.[0]?.price | currency }}</span>
+              </h6>
             </li>
           </ul>
 
           <!-- Additional Tickets -->
-          <div class="form-group mt-4">
+          <div class="form-group mt-4" *ngIf="!isFreeTicket">
             <label>Select Additional Ticket Types</label>
             <div>
               <div *ngFor="let extra of additionalTickets; let i = index">
                 <select [(ngModel)]="extra.type" name="extraType{{ i }}">
-                  <option *ngFor="let ticket of ticketTypes" [value]="ticket.id">{{ ticket.name }}</option>
+                  <option *ngFor="let ticket of event?.paidTickets" [value]="ticket.id">
+                    {{ ticket.name }} - {{ ticket.price | currency }}
+                  </option>
                 </select>
-                <input type="number" [(ngModel)]="extra.quantity" name="extraQty{{ i }}" min="1" />
+                <input type="number" [(ngModel)]="extra.quantity" name="extraQty{{ i }}" min="1" class="form-control mt-1" />
               </div>
             </div>
             <button type="button" class="btn btn-outline-primary mt-2" (click)="addMoreTicketType()">+ Add More Ticket</button>
@@ -210,12 +206,15 @@
         </div>
 
         <!-- Pay Amount -->
-        <div class="proceed-area text-center">
-          <h6 class="subtitle"><span>Pay Amount</span><span>{{ payAmount | currency }}</span></h6>
-          <button class="custom-button" (click)="confirmPayment()">{{ isFreeTicket ? 'Book Now' : 'Confirm Payment' }}</button>
+        <div class="proceed-area text-center mt-3">
+          <h6 *ngIf="!isFreeTicket" class="subtitle"><span>Pay Amount</span><span>{{ payAmount | currency }}</span></h6>
+          <button class="custom-button w-100" (click)="confirmPayment()">
+            {{ isFreeTicket ? 'Book Now' : 'Confirm Payment' }}
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
- </div>
+
+</div>

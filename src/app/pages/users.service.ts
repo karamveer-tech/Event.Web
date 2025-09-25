@@ -3,24 +3,27 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CONFIG } from '../confiq/confiq';
 
-export interface Booking {
-  id?: number; // optional when creating
-  user_id: number;
-  event_id: number;
-  booking_date: Date; // ISO date string
-  status: string;
-  emailId: string;
-  total_amount: number;
-  quantity: number;
-  BookingTickets?: BookingTicket[];
-}
 export interface BookingTicket {
   id?: number;
-  booking_id?: number;
-  ticket_type: string;
+  ticket_type_id?: number;
+  ticket_type_name?: string;
   quantity: number;
-  price: number | null;
+  ticket_price?: number;
 }
+
+export interface Booking {
+  id?: number;
+  user_id: number;
+  event_id: number;
+  booking_date: Date;
+  status: string;
+  emailId?: string;
+  total_amount: number;
+  quantity: number;
+  bookingTicketsJson?: string;  // JSON string for API
+  BookingTickets?: BookingTicket[]; // local use
+}
+
 export interface UsersModel {
  id?: number;
   name?: string;
@@ -62,9 +65,31 @@ export interface MyBookings {
 }
 
 export interface PaidTicket {
+    id?: number;
     name: string;
     seats: number | null;
     price: number | null;
+}
+
+export interface EventModel {
+    id: number;
+    title: string;
+    description?: string;
+    location?: string;
+    address?: string;
+    start_datetime: string;
+    end_datetime: string;
+    banner_path: string;
+    ticketType: 'Free' | 'Paid';
+    freeSeats?: number | null;
+    paidTickets?: PaidTicket[];
+    banner?: File | null;
+    images?: File[];
+    imagesPath?: string;
+    status: 'Draft' | 'Published';
+    lat?: number;  // use type only
+    lng?: number;  // use type only
+    // csvFile?: File | null;
 }
 
 @Injectable({
@@ -91,7 +116,7 @@ export class UsersService {
       formData.append('status', booking.status || '');
       formData.append('total_amount', booking.total_amount.toString());
       formData.append('quantity', booking.quantity.toString());
-      formData.append('emailId', booking.emailId.toString());
+      formData.append('emailId', booking.emailId || '');
 
     if (booking.BookingTickets && booking.BookingTickets.length > 0) {
       formData.append('bookingTicketsJson', JSON.stringify(booking.BookingTickets));

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CONFIG } from '../confiq/confiq';
 
 export interface PaidTicket {
+    id?: number;
     name: string;
     seats: number | null;
     price: number | null;
