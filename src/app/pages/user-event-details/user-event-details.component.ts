@@ -78,8 +78,8 @@ export class UserEventDetailsComponent implements OnInit, OnDestroy {
   private prepareImages(): void {
     if (!this.event?.imagesPath) return;
 
-    // const baseUrl = 'http://148.113.192.114:5000/';
-    const baseUrl = 'https://localhost:7129/';
+    const baseUrl = 'http://148.113.192.114:5000/';
+    // const baseUrl = 'https://localhost:7129/';
     const images = this.event.imagesPath.split(',').map(img => img.trim());
     this.leftImages = images.slice(0, -1).map(img => baseUrl + img);
     this.rightImage = images.length ? baseUrl + images[images.length - 1] : null;
