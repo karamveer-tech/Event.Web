@@ -1,9 +1,9 @@
 //const hostname = window.location.hostname;
 
-let baseUrl = 'https://localhost:7129'; // default dev URL
-// let baseUrl = 'http://148.113.192.114:5000';
-// let baseUrlForQR = 'http://148.113.192.114/user-event-details/';
-let baseUrlForQR = 'https://localhost:7129/user-event-details/';
+// let baseUrl = 'https://localhost:7129'; // default dev URL
+let baseUrl = 'http://148.113.192.114:5000';
+let baseUrlForQR = 'http://148.113.192.114/user-event-details/';
+// let baseUrlForQR = 'https://localhost:7129/user-event-details/';
 // // Production / staging overrides
 // if (hostname === '148.113.192.114') {
 //   baseUrl = 'http://148.113.192.114:5000';
