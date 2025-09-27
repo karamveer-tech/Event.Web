@@ -1,9 +1,12 @@
 //const hostname = window.location.hostname;
 
 // let baseUrl = 'https://localhost:7129'; // default dev URL
+// let baseUrlForImages = 'https://localhost:7129/'; // default dev URL
+// let baseUrlForQR = 'https://localhost:7129/user-event-details/';
+let baseUrlForImages = 'http://148.113.192.114:5000/';
 let baseUrl = 'http://148.113.192.114:5000';
 let baseUrlForQR = 'http://148.113.192.114/user-event-details/';
-// let baseUrlForQR = 'https://localhost:7129/user-event-details/';
+
 // // Production / staging overrides
 // if (hostname === '148.113.192.114') {
 //   baseUrl = 'http://148.113.192.114:5000';
@@ -12,6 +15,7 @@ let baseUrlForQR = 'http://148.113.192.114/user-event-details/';
 export const CONFIG = {
   API_BASE_URL: baseUrl,
   baseUrlForQR: baseUrlForQR,
+  baseUrlForImages: baseUrlForImages,
   ENDPOINTS: {
     CREATE_EVENT: '/api/Event/create-event',
     GET_EVENTS: '/api/Event/get-all-events',

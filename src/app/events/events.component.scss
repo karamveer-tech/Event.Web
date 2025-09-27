@@ -8,3 +8,18 @@
   font-family: "Open Sans", sans-serif;
   background: #001232;
 }
+/* ensure banner background covers full width nicely */
+.banner-section .banner-bg {
+  background-size: cover;
+  background-position: center;
+}
+.banner-bg {
+  // background-image: url('/assets/img/banner/banner-1.jpg');
+  background-size: cover;       /* Cover the whole div */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat */
+  height: 78vh;                /* Full viewport height */
+  display: flex;                /* Use flexbox to center content */
+  align-items: center;          /* Vertically center */
+  justify-content: center;      /* Horizontally center */
+}

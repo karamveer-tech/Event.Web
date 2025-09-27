@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventModel, EventService } from 'src/app/event-create-modal/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { Config, NavController } from '@ionic/angular';
 import { Subscription, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { CONFIG } from 'src/app/confiq/confiq';
 
 @Component({
   selector: 'app-user-event-details',
@@ -78,11 +79,9 @@ export class UserEventDetailsComponent implements OnInit, OnDestroy {
   private prepareImages(): void {
     if (!this.event?.imagesPath) return;
 
-    const baseUrl = 'http://148.113.192.114:5000/';
-    // const baseUrl = 'https://localhost:7129/';
     const images = this.event.imagesPath.split(',').map(img => img.trim());
-    this.leftImages = images.slice(0, -1).map(img => baseUrl + img);
-    this.rightImage = images.length ? baseUrl + images[images.length - 1] : null;
+    this.leftImages = images.slice(0, -1).map(img => CONFIG.baseUrlForImages + img);
+    this.rightImage = images.length ? CONFIG.baseUrlForImages + images[images.length - 1] : null;
   }
 
   closeDetails(): void {
@@ -90,7 +89,7 @@ export class UserEventDetailsComponent implements OnInit, OnDestroy {
   }
 
   goToCheckout(): void {
-   this.navCtrl.navigateForward(['/event-checkoutme']);
+   this.router.navigate(['/event-checkoutme']);
   }
 
   ngOnDestroy(): void {

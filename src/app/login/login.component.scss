@@ -3,3 +3,22 @@
   overflow-y: auto;       /* Enables vertical scroll */
   overflow-x: hidden;     /* Prevents horizontal scroll */
 }
+/* Success Snackbar */
+.snackbar-success {
+  background-color: #ececd3; /* teal/green accent to match "MY BOOKINGS" text */
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border-left: 5px solid #16a085; /* highlighted edge */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* slightly elevated */
+}
+
+/* Error Snackbar */
+.snackbar-error {
+  background-color: #e74c3c; /* bright red for errors */
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border-left: 5px solid #c0392b;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}

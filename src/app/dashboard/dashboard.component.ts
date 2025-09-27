@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService, EventModel } from '../event-create-modal/event.service';
 import * as eventCreateModalComponent from '../event-create-modal/event-create-modal.component';
 import { Router } from '@angular/router';
+import { AlertMessageService } from '../alert-message.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   selectedEvent: EventModel | null = null; // event to edit
   enableEdit = true;
 
-  constructor(private renderer: Renderer2, private modalService: NgbModal, private eventService: EventService, private router: Router) { }
+  constructor(private renderer: Renderer2, private modalService: NgbModal, private eventService: EventService, private router: Router,private alertService: AlertMessageService) { }
 
   ngOnInit(): void {
 
@@ -68,20 +69,25 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
 
-deleteEvent(eventId: number) {
-  if (confirm("Are you sure you want to delete this event?")) {
-    this.eventService.deleteEvent(eventId).subscribe({
-      next: (res) => {
-        alert("✅ Event deleted successfully!");
-        window.location.reload();
+async deleteEvent(eventId: number) {
 
-      },
-      error: (err) => {
-        alert("❌ Failed to delete event. Please try again.");
-        this.loading = false;
-      }
-    });
-  }
+   const confirmed = await this.alertService.confirm(
+  'Are you sure?',
+  'This event will be permanently deleted.'
+);
+
+if (confirmed) {
+  this.eventService.deleteEvent(eventId).subscribe({
+    next: (res) => {
+      this.alertService.showSuccess('✅ Event deleted successfully!');
+      window.location.reload();
+    },
+    error: (err) => {
+      this.alertService.showError('❌ Failed to delete event. Please try again.');
+      this.loading = false;
+    }
+  });
+}
 }
 
 logout():void{

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CONFIG } from '../confiq/confiq';
+import { AlertMessageService } from '../alert-message.service';
 
 interface LoginRequest {
   email: string;
@@ -31,13 +32,13 @@ export class LoginComponent  implements OnInit {
   };
   remember: boolean = false;
 
-  constructor() { }
+  constructor(private alertService: AlertMessageService) { }
 
   ngOnInit() {}
 async onSubmit() {
   
     if (!this.loginModel.email || !this.loginModel.password_hash) {
-      alert('Please fill in both email and password.');
+      this.alertService.showError("Please fill in both email and password.")
       return;
     }
 

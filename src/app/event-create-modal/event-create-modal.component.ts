@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { EventService, EventModel, PaidTicket } from '../event-create-modal/event.service';
 // import { GoogleMapsModule } from '@angular/google-maps';
 import { Router, RouterModule } from '@angular/router';
+import { AlertMessageService } from '../alert-message.service';
 
 interface ApiResponse {
   success: boolean;
@@ -72,7 +73,7 @@ export class EventCreateModalComponent implements OnInit, AfterViewInit {
   @ViewChild('addressInput') addressInput!: ElementRef<HTMLInputElement>;
   // center: google.maps.LatLngLiteral = { lat: 20.5937, lng: 78.9629 }; // default center (India)
   // markerPosition: google.maps.LatLngLiteral | null = null;
-  constructor(public activeModal: NgbActiveModal, private eventService: EventService, private ngZone: NgZone, private router: Router) { }
+  constructor(public activeModal: NgbActiveModal, private eventService: EventService, private ngZone: NgZone, private router: Router,private alertService: AlertMessageService) { }
 
 
   ngOnInit() {
@@ -262,7 +263,7 @@ removeNewImage(index: number) {
           if (res.success) {
             this.message = '✅ Event created successfully!';
             this.activeModal.close(res.data);
-             alert(this.message);
+            this.alertService.showSuccess('✅ Event created successfully!');
             window.location.reload();
           } else {
             this.message = '❌ ' + res.message;
@@ -281,7 +282,7 @@ removeNewImage(index: number) {
           if (res.success) {
             this.message = '✅ Event Updated successfully!';
             this.activeModal.close(res.data);
-            alert(this.message);
+            this.alertService.showSuccess('✅ Event Updated successfully!');
             window.location.reload();
           } else {
             this.message = '❌ ' + res.message;

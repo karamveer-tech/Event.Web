@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Booking, BookingTicket, UsersModel, UsersService } from '../users.service';
 import { EventModel, PaidTicket } from 'src/app/event-create-modal/event.service';
+import { AlertMessageService } from 'src/app/alert-message.service';
 
 @Component({
   selector: 'app-event-checkout',
@@ -85,7 +86,7 @@ quantity: number = 0;
   availableTickets: number = 0;
   totalBookedTicketCount: number = 0;
 
-  constructor(public router: Router, private userDataService: UsersService) {}
+  constructor(public router: Router, private userDataService: UsersService,private alertService: AlertMessageService) {}
 
   ngOnInit() {
     // Redirect if page reload
@@ -160,9 +161,9 @@ quantity: number = 0;
     this.selectedPayment = method;
   }
 
-confirmPayment() {
+async confirmPayment() {
   if (!this.event) {
-    alert('Event not loaded!');
+    this.alertService.showError("Event not loaded!")
     return;
   }
 
@@ -199,18 +200,19 @@ confirmPayment() {
     bookingTicketsJson: JSON.stringify(tickets) // required by backend
   };
 
-  // Call booking API
-  this.userDataService.bookNow(this.booking).subscribe({
-    next: res => {
-      alert('Booking successful!');
-      this.router.navigate(['/myBookings']);
-      
-    },
-    error: err => {
-      console.error('Booking failed', err);
-      alert('Booking failed!');
-    }
-  });
+ // booking API call
+this.userDataService.bookNow(this.booking).subscribe({
+  next: (res) => {
+    // Show success popup, then redirect
+      this.alertService.showSuccess("✅ Booking successful!");
+    this.router.navigate(['/myBookings']);
+  },
+  error: (err) => {
+    console.error("Booking failed", err);
+    this.alertService.showError("Booking failed!");
+  }
+});
+
 }
 
 
